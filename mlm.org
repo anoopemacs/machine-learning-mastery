@@ -839,9 +839,8 @@ estimated from the training data. Hyperparameters of a model are set
 and tuned depending on a combination of some heuristics and the
 experience and domain knowledge of the data scientist.
 
-*** jfdk
 
-* https://machinelearningmastery.com/python-machine-learning-mini-course/
+nn* https://machinelearningmastery.com/python-machine-learning-mini-course/
 14Lessons
 ** pre requisite https://machinelearningmastery.com/gentle-introduction-to-the-bias-variance-trade-off-in-machine-learning/
 *Bias Error*
@@ -910,16 +909,52 @@ brew install sip
 
 using python snippets inside orgmode https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-python.html
 installed python-mode from package-list-packages for emacs
-#+BEGIN_SRC python
-    print("hello")
-  return 1
+#+BEGIN_SRC emacs-lisp
+  (pyvenv-workon "mlm")
 #+END_SRC
 
 #+RESULTS:
-: 1
 
-#+BEGIN_SRC python
+Fixed some errors using: pip install nose pyparsing python-dateutil pep8
+#+BEGIN_SRC python :results output
+  import sys
+  import scipy
+  import numpy
+  import matplotlib
+  import pandas
+  import sklearn
+
+  print(f'python: {sys.version}')
+  print(f'scipy: {scipy.__version__}')
+  print(f'numpy: {numpy.__version__}')
+  print(f'matplotlib {matplotlib.__version__}')
+  print(f'pandas {pandas.__version__}')
+  print(f'sklearn {sklearn.__version__}')
 
 #+END_SRC
 
-** 2 - 
+#+RESULTS:
+: python: 3.7.0 (default, Aug 22 2018, 15:22:29) 
+: [Clang 8.0.0 (clang-800.0.42.1)]
+: scipy: 1.1.0
+: numpy: 1.15.4
+: matplotlib 3.0.2
+: pandas 0.23.4
+: sklearn 0.20.1
+
+** 2 - pandas, numpy, mathplotlib veeery basics
+#+BEGIN_SRC python :results output
+import sys
+print(sys.version)
+#+END_SRC
+
+#+RESULTS:
+: 3.7.0 (default, Aug 22 2018, 15:22:29) 
+: [Clang 8.0.0 (clang-800.0.42.1)]
+
+#+BEGIN_SRC elisp
+(+ 2 3)
+#+END_SRC
+
+#+RESULTS:
+: 5
