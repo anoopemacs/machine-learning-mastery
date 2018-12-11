@@ -453,11 +453,13 @@ prints:
     2
     3
 """
-    x = 0
+x = 0
 while x < 4:
     print(x)
     x += 1  # Shorthand for x = x + 1
 
+
+#anoop, note: except has nothing to do with the verb meaning, it is kinda short0 for exception
 # Handle exceptions with a try/except block
 try:
     # Use "raise" to raise an error
@@ -576,6 +578,7 @@ def set_x(num):
     x = num    # => 43
     print(x)   # => 43
 
+#anoop
 def set_global_x(num):
     global x
     print(x)   # => 5
@@ -586,6 +589,7 @@ set_x(43)
 set_global_x(6)
 
 
+#anoop , for functional seek help here:
 # Python has first class functions
 def create_adder(x):
     def adder(y):
@@ -645,6 +649,7 @@ math.sqrt(16) == m.sqrt(16)  # => True
 import math
 dir(math)
 
+#anoop
 # If you have a Python script named math.py in the same
 # folder as your current script, the file math.py will
 # be loaded instead of the built-in Python module.

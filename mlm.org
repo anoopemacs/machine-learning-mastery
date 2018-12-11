@@ -1,3 +1,4 @@
+#+STARTUP: inlineimages
 * Top Index
 
 Foundations
@@ -942,19 +943,56 @@ Fixed some errors using: pip install nose pyparsing python-dateutil pep8
 : pandas 0.23.4
 : sklearn 0.20.1
 
-** 2 - pandas, numpy, mathplotlib veeery basics
+** 2 - python, pandas, numpy, mathplotlib veeery basics
+
 #+BEGIN_SRC python :results output
-import sys
-print(sys.version)
+  if 1>2:
+      print("wtf")
+  else:
+      print("ok")
+
+  try:
+      # Use "raise" to raise an error
+      raise IndexError("This is an index error")
+  except IndexError as e:
+      print("its indexerror")
+      pass                 # Pass is just a no-op. Usually you would do recovery here.
+  except (TypeError, NameError):
+      print("its typeerror or nameerror")
+      pass                 # Multiple exceptions can be handled together, if required.
+  else:                    # Optional clause to the try/except block. Must follow all except blocks
+      print("All good!")   # Runs only if the code in try raises no exceptions
+  finally:                 #  Execute under all circumstances
+      print("We can clean up resources here")
 #+END_SRC
 
 #+RESULTS:
-: 3.7.0 (default, Aug 22 2018, 15:22:29) 
-: [Clang 8.0.0 (clang-800.0.42.1)]
+: ok
+: its indexerror
+: We can clean up resources here
 
-#+BEGIN_SRC elisp
-(+ 2 3)
+#+BEGIN_SRC python :results output
+  def accepts_variable_number_of_arguments(*args):
+      print(type(args))
+      print(args)
+
+  accepts_variable_number_of_arguments(1,2,3)
+    
+  def accepts_variable_number_of_keyword_arguments(**kwargs):
+      print(type(kwargs))
+      print(kwargs)
+
+  accepts_variable_number_of_keyword_arguments(name="anoop", work="code")
 #+END_SRC
 
 #+RESULTS:
-: 5
+: <class 'tuple'>
+: (1, 2, 3)
+: <class 'dict'>
+: {'name': 'anoop', 'work': 'code'}
+
+*** numpy tutorial https://docs.scipy.org/doc/numpy-1.15.0/user/quickstart.html
+
+#+ATTR_ORG: :width 800px
+[[file:screenshots0/Screenshot 2018-12-11 at 5.16.28 PM.png]]
+
