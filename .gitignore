@@ -1,0 +1,8 @@
+# Ignore Git here
+.git
+
+# But not these files...
+!.gitignore
+
+# Ignore venv directory
+mlm2

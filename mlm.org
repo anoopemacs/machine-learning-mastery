@@ -887,7 +887,7 @@ Use :session: property to speed up org-babel when possible to use the same sessi
 : (mlm) /Users/anoop/ml/flipshope ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 #+BEGIN_SRC elisp :session session007 :results output
-  (pyvenv-workon "mlm")
+  (pyvenv-workon "mlm2")
 #+END_SRC
 
 #+RESULTS:
@@ -991,8 +991,208 @@ Fixed some errors using: pip install nose pyparsing python-dateutil pep8
 : <class 'dict'>
 : {'name': 'anoop', 'work': 'code'}
 
-*** numpy tutorial https://docs.scipy.org/doc/numpy-1.15.0/user/quickstart.html
+*** numpy basics
 
 #+ATTR_ORG: :width 800px
 [[file:screenshots0/Screenshot 2018-12-11 at 5.16.28 PM.png]]
 
+*numpy official tutorial*
+https://docs.scipy.org/doc/numpy-1.15.0/user/quickstart.html
+#+BEGIN_SRC python :results output
+    import numpy as np
+    a = np.arange(15).reshape(3,5)
+    print(a)
+    a.shape
+    a.ndim
+    a.dtype.name
+    #dir(a)
+    a.size
+    type(a)
+    b = np.array([6,7,8])
+    b
+    type(b)
+
+    np.zeros([2,3])
+    np.arange(15)
+    np.linspace(0,9, 19)
+
+    from numpy import pi
+    x = np.linspace(0, 2*pi, 5)
+    np.sin(x)
+    #2 decimal places
+    np.around(np.sin(x), decimals=2)
+
+    A = np.array([[1,2],[3,4]])
+    I = np.array([[1,0],[0,1]])
+    elementwise = A * I
+    matrix_product = A @ I
+    print(elementwise, "\n", matrix_product)
+
+    a = np.ones(3, dtype=np.int32)
+    b = np.linspace(0, 1, 3)
+    c = a + b
+    print(a,b,c)
+    c.dtype.name
+    c*1j
+    np.ones(1)
+    my_e = np.exp(np.ones(1))
+    from numpy import e
+    e
+    print(e, my_e)
+    d = np.exp(c*1j)
+    d.dtype
+    # exp, sin etc are called numpy universal functions
+
+    # multidimensional array
+  c = np.array([
+      [
+          [  0,  1,  2],
+          [ 10, 12, 13]
+      ],
+      [
+          [100,101,102],
+          [110,112,113]
+      ]
+  ])
+  c.shape
+  # Visualize0 2,2,3 as you traverse from the topmost bracket to the inner ones
+  for i in c.flat:
+      print(i, end=" // ")
+  print("\n")
+  id(c) #id is unique identifier of an object in python
+
+
+#+END_SRC
+
+axis in numpy
+[[file:screenshots0/Screenshot%202018-12-11%20at%206.06.43%20PM.png][file:~/ml/flipshope/screenshots0/Screenshot 2018-12-11 at 6.06.43 PM.png]]
+
+matplotlib python is not installed as a framework error, solution:
+https://stackoverflow.com/questions/34977388/matplotlib-runtimeerror-python-is-not-installed-as-a-framework
+
+Above is a hacky solution
+I need to switch away from virtualenv & virtualenvwrapper and move to venv entirely
+Also, reddit recommends to avoid the pyenv wrapper around venv && strongly recommends to use venv directly
+venv ships by default with python >= 3.3
+https://matplotlib.org/faq/osx_framework.html
+https://news.ycombinator.com/item?id=18612590
+https://news.ycombinator.com/item?id=18247512
+:) 	
+andybak 54 days ago [-]
+In case this scares any new users, I've used nothing more than pip and virtualenv for several years with no issues of note.
+
+
+
+#+BEGIN_SRC python :results output
+  import numpy as np
+  import matplotlib.pyplot as plt
+  #import matplotlib  
+  #matplotlib.use('TkAgg')   
+  #import matplotlib.pyplot as plt 
+
+  def mandelbrot( h,w, maxit=20 ):
+      """Returns an image of the Mandelbrot fractal of size (h,w)."""
+      y,x = np.ogrid[ -1.4:1.4:h*1j, -2:0.8:w*1j ]
+      c = x+y*1j
+      z = c
+      divtime = maxit + np.zeros(z.shape, dtype=int)
+
+      for i in range(maxit):
+          z = z**2 + c
+          diverge = z*np.conj(z) > 2**2            # who is diverging
+          div_now = diverge & (divtime==maxit)  # who is diverging now
+          divtime[div_now] = i                  # note when
+          z[diverge] = 2                        # avoid diverging too much
+
+      return divtime
+  plt.imshow(mandelbrot(400,400))
+  plt.show()
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :results output
+  import sys
+  print(sys.path)
+#+END_SRC
+
+#+RESULTS:
+: ['', '/Users/anoop/.virtualenvs/mlm/lib/python37.zip', '/Users/anoop/.virtualenvs/mlm/lib/python3.7', '/Users/anoop/.virtualenvs/mlm/lib/python3.7/lib-dynload', '/usr/local/Cellar/python/3.7.0/Frameworks/Python.framework/Versions/3.7/lib/python3.7', '/Users/anoop/.virtualenvs/mlm/lib/python3.7/site-packages']
+
+*real-python tutorial*
+https://realpython.com/numpy-array-programming/
+
+When it comes to computation, there are really three concepts that lend NumPy its power:
+Vectorization
+Broadcasting
+Indexing
+
+#+BEGIN_SRC python :results output
+    import numpy as np
+
+    arr = np.arange(36).reshape(3,4,3)
+    arr
+
+    """
+    visualize0:-
+
+    00 01 02 03 04 05 06 07 08 09 10 11 
+    12 13 14 15 16 17 18 19 20 21 22 23 
+    24 25 26 27 28 29 30 31 32 33 34 35 
+
+    00 01 02 
+    03 04 05 
+    06 07 08 
+    09 10 11 
+
+    [#3 items
+    [#4 items
+    []
+    []
+    []
+    []
+    ]...
+    ]
+    """
+    a = np.array([2,3,4])
+    b = 2
+    b_broadcasted = np.broadcast(a,b)
+    print(list(b_broadcasted))
+    # rest of this tutorial seemed a bit advanced, skip for now, come back later
+
+#+END_SRC
+
+*Note* Pandas is a library built on top of NumPy
+
+todo: switch to jupyter notebook instead of emacs: 
+https://github.com/millejoh/emacs-ipython-notebook
+http://millejoh.github.io/emacs-ipython-notebook/
+https://www.youtube.com/watch?v=wtVF5cMhBjg
+https://news.ycombinator.com/item?id=9728143
+https://github.com/gregsexton/ob-ipython
+
+*** matplotlib basics
+matplotlib, is written in pure Python and is heavily dependent on NumPy
+
+Matplotlib is conceptually divided into three parts:
+pylab interface (similar to MATLAB) – pylab tutorial, this is the matplotlib.pyplot import
+Matplotlib frontend or API – artist tutorial
+backends – drawing devices or renderers
+
+Lets learn pyplot
+https://matplotlib.org/users/pyplot_tutorial.html#pyplot-tutorial
+
+#+BEGIN_SRC python :results both
+  import matplotlib
+  #matplotlib.use('MacOSX')
+  import matplotlib.pyplot as plt
+
+  plt.plot([0, 1, 4, 9, 16])
+  #plt.show()
+
+  plt.plot([0, 1, 4, 9, 16], 'ro')
+  plt.show()
+#+END_SRC
+
+#+RESULTS:
+: None
