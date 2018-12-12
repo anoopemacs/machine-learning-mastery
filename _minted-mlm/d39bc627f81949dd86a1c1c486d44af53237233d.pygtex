@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{if} \PYG{l+m+mi}{1}\PYG{o}{\PYGZgt{}}\PYG{l+m+mi}{2}\PYG{p}{:}
+    \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}wtf\PYGZdq{}}\PYG{p}{)}
+\PYG{k}{else}\PYG{p}{:}
+    \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}ok\PYGZdq{}}\PYG{p}{)}
+
+\PYG{k}{try}\PYG{p}{:}
+    \PYG{c+c1}{\PYGZsh{} Use \PYGZdq{}raise\PYGZdq{} to raise an error}
+    \PYG{k}{raise} \PYG{n+ne}{IndexError}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}This is an index error\PYGZdq{}}\PYG{p}{)}
+\PYG{k}{except} \PYG{n+ne}{IndexError} \PYG{k}{as} \PYG{n}{e}\PYG{p}{:}
+    \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}its indexerror\PYGZdq{}}\PYG{p}{)}
+    \PYG{k}{pass}                 \PYG{c+c1}{\PYGZsh{} Pass is just a no\PYGZhy{}op. Usually you would do recovery here.}
+\PYG{k}{except} \PYG{p}{(}\PYG{n+ne}{TypeError}\PYG{p}{,} \PYG{n+ne}{NameError}\PYG{p}{):}
+    \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}its typeerror or nameerror\PYGZdq{}}\PYG{p}{)}
+    \PYG{k}{pass}                 \PYG{c+c1}{\PYGZsh{} Multiple exceptions can be handled together, if required.}
+\PYG{k}{else}\PYG{p}{:}                    \PYG{c+c1}{\PYGZsh{} Optional clause to the try/except block. Must follow all except blocks}
+    \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}All good!\PYGZdq{}}\PYG{p}{)}   \PYG{c+c1}{\PYGZsh{} Runs only if the code in try raises no exceptions}
+\PYG{k}{finally}\PYG{p}{:}                 \PYG{c+c1}{\PYGZsh{}  Execute under all circumstances}
+    \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}We can clean up resources here\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

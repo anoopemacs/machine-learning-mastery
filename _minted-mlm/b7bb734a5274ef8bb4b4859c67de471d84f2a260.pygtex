@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Scatter Plot Matrix}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k+kn}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas}
+
+\PYG{n}{my\PYGZus{}fieldnames} \PYG{o}{=} \PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}sepal\PYGZus{}length\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}sepal\PYGZus{}width\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}petal\PYGZus{}length\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}petal\PYGZus{}width\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}class\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{data} \PYG{o}{=} \PYG{n}{pandas}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}iris.csv\PYGZsq{}}\PYG{p}{,} \PYG{n}{names}\PYG{o}{=}\PYG{n}{my\PYGZus{}fieldnames}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}print(data)}
+
+\PYG{n}{se} \PYG{o}{=} \PYG{n}{data}\PYG{o}{.}\PYG{n}{loc}\PYG{p}{[}\PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}class\PYGZdq{}}\PYG{p}{]} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}Iris\PYGZhy{}setosa\PYGZdq{}}\PYG{p}{]}
+\PYG{n}{ve} \PYG{o}{=} \PYG{n}{data}\PYG{o}{.}\PYG{n}{loc}\PYG{p}{[}\PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}class\PYGZdq{}}\PYG{p}{]} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}Iris\PYGZhy{}versicolor\PYGZdq{}}\PYG{p}{]}
+\PYG{n}{vi} \PYG{o}{=} \PYG{n}{data}\PYG{o}{.}\PYG{n}{loc}\PYG{p}{[}\PYG{n}{data}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}class\PYGZdq{}}\PYG{p}{]} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}Iris\PYGZhy{}virginica\PYGZdq{}}\PYG{p}{]}
+
+\PYG{n}{se}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{}ve.hist()}
+\PYG{c+c1}{\PYGZsh{}vi.hist()}
+
+\PYG{k+kn}{from} \PYG{n+nn}{pandas.plotting} \PYG{k+kn}{import} \PYG{n}{scatter\PYGZus{}matrix}
+\PYG{n}{scatter\PYGZus{}matrix}\PYG{p}{(}\PYG{n}{se}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

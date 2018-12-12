@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{pandas}
+\PYG{n}{df} \PYG{o}{=} \PYG{n}{pandas}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}pandas\PYGZus{}read\PYGZus{}csv.csv\PYGZsq{}}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{df}\PYG{p}{)}
+
+\PYG{n}{df2} \PYG{o}{=} \PYG{n}{pandas}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}pandas\PYGZus{}read\PYGZus{}csv.csv\PYGZsq{}}\PYG{p}{,} \PYG{n}{parse\PYGZus{}dates}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Hire Date\PYGZsq{}}\PYG{p}{],} \PYG{n}{index\PYGZus{}col}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Name\PYGZsq{}}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{df2}\PYG{p}{)}
+
+\PYG{n}{my\PYGZus{}col\PYGZus{}names} \PYG{o}{=} \PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Name\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}Hired\PYGZus{}on\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}Salary\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}sick\PYGZus{}days\PYGZus{}remaining\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{df3} \PYG{o}{=} \PYG{n}{pandas}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}pandas\PYGZus{}read\PYGZus{}csv.csv\PYGZsq{}}\PYG{p}{,} \PYG{n}{header}\PYG{o}{=}\PYG{n+nb+bp}{None}\PYG{p}{,} \PYG{n}{names}\PYG{o}{=}\PYG{n}{my\PYGZus{}col\PYGZus{}names}\PYG{p}{,}
+\PYG{n}{parse\PYGZus{}dates}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Hired\PYGZus{}on\PYGZsq{}}\PYG{p}{])}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{df3}\PYG{p}{)}
+
+\PYG{n}{df3}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}pandas\PYGZus{}to\PYGZus{}csv.csv\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

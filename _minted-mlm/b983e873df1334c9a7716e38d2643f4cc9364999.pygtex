@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nb}{source} \PYGZti{}/.bashrc
+\PYG{c+c1}{\PYGZsh{}mkvirtualenv mlm}
+workon mlm
+which python
+\end{Verbatim}

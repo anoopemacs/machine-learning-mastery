@@ -1,0 +1,31 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{csv}
+
+\PYG{k}{with} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}iris.csv\PYGZsq{}}\PYG{p}{)} \PYG{k}{as} \PYG{n}{csv\PYGZus{}file}\PYG{p}{:}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    for line in csv\PYGZus{}file:}
+\PYG{l+s+sd}{\PYGZca{}\PYGZca{}Iprint(line)}
+\PYG{l+s+sd}{\PYGZca{}\PYGZca{}Ipass}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{csv\PYGZus{}reader} \PYG{o}{=} \PYG{n}{csv}\PYG{o}{.}\PYG{n}{reader}\PYG{p}{(}\PYG{n}{csv\PYGZus{}file}\PYG{p}{)}
+    \PYG{k}{for} \PYG{n}{line} \PYG{o+ow}{in} \PYG{n}{csv\PYGZus{}reader}\PYG{p}{:}
+\PYG{o}{\PYGZca{}\PYGZca{}}\PYG{n}{I}\PYG{c+c1}{\PYGZsh{}print(line)}
+\PYG{o}{\PYGZca{}\PYGZca{}}\PYG{n}{Ipass}
+
+\PYG{n}{my\PYGZus{}fieldnames} \PYG{o}{=} \PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}sepal\PYGZus{}length\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}sepal\PYGZus{}width\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}petal\PYGZus{}length\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}petal\PYGZus{}width\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}class\PYGZdq{}}\PYG{p}{)}
+
+\PYG{k}{with} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}iris.csv\PYGZsq{}}\PYG{p}{)} \PYG{k}{as} \PYG{n}{csv\PYGZus{}file}\PYG{p}{:}
+    \PYG{n}{csv\PYGZus{}dict\PYGZus{}reader} \PYG{o}{=} \PYG{n}{csv}\PYG{o}{.}\PYG{n}{DictReader}\PYG{p}{(}\PYG{n}{csv\PYGZus{}file}\PYG{p}{,} \PYG{n}{fieldnames}\PYG{o}{=}\PYG{n}{my\PYGZus{}fieldnames}\PYG{p}{)}
+    \PYG{k}{for} \PYG{n}{line} \PYG{o+ow}{in} \PYG{n}{csv\PYGZus{}dict\PYGZus{}reader}\PYG{p}{:}
+\PYG{o}{\PYGZca{}\PYGZca{}}\PYG{n}{I}\PYG{c+c1}{\PYGZsh{}print(line)}
+\PYG{o}{\PYGZca{}\PYGZca{}}\PYG{n}{Ipass}
+
+\PYG{k}{with} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}test\PYGZus{}writeout.csv\PYGZsq{}}\PYG{p}{,} \PYG{n}{mode}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}w\PYGZsq{}}\PYG{p}{)} \PYG{k}{as} \PYG{n}{out\PYGZus{}file}\PYG{p}{:}
+    \PYG{n}{csv\PYGZus{}writer} \PYG{o}{=} \PYG{n}{csv}\PYG{o}{.}\PYG{n}{writer}\PYG{p}{(}\PYG{n}{out\PYGZus{}file}\PYG{p}{)}
+    \PYG{n}{csv\PYGZus{}writer}\PYG{o}{.}\PYG{n}{writerow}\PYG{p}{([}\PYG{l+s+s2}{\PYGZdq{}row\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}1\PYGZdq{}}\PYG{p}{])}
+    \PYG{n}{csv\PYGZus{}writer}\PYG{o}{.}\PYG{n}{writerow}\PYG{p}{([}\PYG{l+s+s2}{\PYGZdq{}row\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}2\PYGZdq{}}\PYG{p}{])}
+    \PYG{c+c1}{\PYGZsh{}}
+    \PYG{n}{csv\PYGZus{}dict\PYGZus{}writer} \PYG{o}{=} \PYG{n}{csv}\PYG{o}{.}\PYG{n}{DictWriter}\PYG{p}{(}\PYG{n}{out\PYGZus{}file}\PYG{p}{,} \PYG{n}{fieldnames} \PYG{o}{=} \PYG{n}{my\PYGZus{}fieldnames}\PYG{p}{)}
+    \PYG{n}{csv\PYGZus{}dict\PYGZus{}writer}\PYG{o}{.}\PYG{n}{writeheader}\PYG{p}{()}
+    \PYG{n}{csv\PYGZus{}dict\PYGZus{}writer}\PYG{o}{.}\PYG{n}{writerow}\PYG{p}{(\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}sepal\PYGZus{}length\PYGZdq{}}\PYG{p}{:} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}sepal\PYGZus{}width\PYGZdq{}}\PYG{p}{:} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}petal\PYGZus{}length\PYGZdq{}}\PYG{p}{:} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}petal\PYGZus{}width\PYGZdq{}}\PYG{p}{:} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}class\PYGZdq{}}\PYG{p}{:} \PYG{l+m+mi}{5}\PYG{p}{\PYGZcb{})}
+\end{Verbatim}

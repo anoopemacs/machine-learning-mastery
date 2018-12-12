@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib}
+\PYG{c+c1}{\PYGZsh{}matplotlib.use(\PYGZsq{}MacOSX\PYGZsq{})}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k+kn}{as} \PYG{n+nn}{plt}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{([}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{9}\PYG{p}{,} \PYG{l+m+mi}{16}\PYG{p}{])}
+\PYG{c+c1}{\PYGZsh{}plt.show()}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{([}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{9}\PYG{p}{,} \PYG{l+m+mi}{16}\PYG{p}{],} \PYG{l+s+s1}{\PYGZsq{}ro\PYGZsq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}plt.show()}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{([}\PYG{l+m+mf}{0.5}\PYG{p}{],} \PYG{l+s+s1}{\PYGZsq{}y.\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

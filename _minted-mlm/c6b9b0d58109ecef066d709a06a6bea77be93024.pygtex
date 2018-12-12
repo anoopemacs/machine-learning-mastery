@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{sys}
+\PYG{k+kn}{import} \PYG{n+nn}{scipy}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas}
+\PYG{k+kn}{import} \PYG{n+nn}{sklearn}
+
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{f}\PYG{l+s+s1}{\PYGZsq{}python: \PYGZob{}sys.version\PYGZcb{}\PYGZsq{}}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{f}\PYG{l+s+s1}{\PYGZsq{}scipy: \PYGZob{}scipy.\PYGZus{}\PYGZus{}version\PYGZus{}\PYGZus{}\PYGZcb{}\PYGZsq{}}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{f}\PYG{l+s+s1}{\PYGZsq{}numpy: \PYGZob{}numpy.\PYGZus{}\PYGZus{}version\PYGZus{}\PYGZus{}\PYGZcb{}\PYGZsq{}}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{f}\PYG{l+s+s1}{\PYGZsq{}matplotlib \PYGZob{}matplotlib.\PYGZus{}\PYGZus{}version\PYGZus{}\PYGZus{}\PYGZcb{}\PYGZsq{}}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{f}\PYG{l+s+s1}{\PYGZsq{}pandas \PYGZob{}pandas.\PYGZus{}\PYGZus{}version\PYGZus{}\PYGZus{}\PYGZcb{}\PYGZsq{}}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{f}\PYG{l+s+s1}{\PYGZsq{}sklearn \PYGZob{}sklearn.\PYGZus{}\PYGZus{}version\PYGZus{}\PYGZus{}\PYGZcb{}\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

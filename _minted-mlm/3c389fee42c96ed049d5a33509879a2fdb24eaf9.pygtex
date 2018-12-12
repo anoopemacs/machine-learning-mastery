@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Scatter Plot Matrix}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k+kn}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas}
+
+\PYG{n}{my\PYGZus{}col\PYGZus{}names} \PYG{o}{=} \PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}num\PYGZus{}preg\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}plasma\PYGZus{}glucose\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}blood\PYGZus{}pressure\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}triceps\PYGZus{}skin\PYGZus{}thickness\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}serum\PYGZus{}insulin\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}bmi\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}diabetes\PYGZus{}pedigree\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}age\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}class\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{df} \PYG{o}{=} \PYG{n}{pandas}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima\PYGZhy{}indians\PYGZhy{}diabetes.data.csv\PYGZdq{}}\PYG{p}{,} \PYG{n}{header}\PYG{o}{=}\PYG{n+nb+bp}{None}\PYG{p}{,} \PYG{n}{names}\PYG{o}{=}\PYG{n}{my\PYGZus{}col\PYGZus{}names}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}print(df)}
+
+\PYG{k+kn}{from} \PYG{n+nn}{pandas.plotting} \PYG{k+kn}{import} \PYG{n}{scatter\PYGZus{}matrix}
+
+\PYG{n}{scatter\PYGZus{}matrix}\PYG{p}{(}\PYG{n}{df}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{n}{df}\PYG{o}{.}\PYG{n}{corr}\PYG{p}{()}
+\end{Verbatim}

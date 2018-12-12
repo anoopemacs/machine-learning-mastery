@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{accepts\PYGZus{}variable\PYGZus{}number\PYGZus{}of\PYGZus{}arguments}\PYG{p}{(}\PYG{o}{*}\PYG{n}{args}\PYG{p}{):}
+    \PYG{k}{print}\PYG{p}{(}\PYG{n+nb}{type}\PYG{p}{(}\PYG{n}{args}\PYG{p}{))}
+    \PYG{k}{print}\PYG{p}{(}\PYG{n}{args}\PYG{p}{)}
+
+\PYG{n}{accepts\PYGZus{}variable\PYGZus{}number\PYGZus{}of\PYGZus{}arguments}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{)}
+
+\PYG{k}{def} \PYG{n+nf}{accepts\PYGZus{}variable\PYGZus{}number\PYGZus{}of\PYGZus{}keyword\PYGZus{}arguments}\PYG{p}{(}\PYG{o}{**}\PYG{n}{kwargs}\PYG{p}{):}
+    \PYG{k}{print}\PYG{p}{(}\PYG{n+nb}{type}\PYG{p}{(}\PYG{n}{kwargs}\PYG{p}{))}
+    \PYG{k}{print}\PYG{p}{(}\PYG{n}{kwargs}\PYG{p}{)}
+
+\PYG{n}{accepts\PYGZus{}variable\PYGZus{}number\PYGZus{}of\PYGZus{}keyword\PYGZus{}arguments}\PYG{p}{(}\PYG{n}{name}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}anoop\PYGZdq{}}\PYG{p}{,} \PYG{n}{work}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}code\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

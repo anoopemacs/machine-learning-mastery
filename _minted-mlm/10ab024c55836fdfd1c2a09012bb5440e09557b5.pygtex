@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k+kn}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k+kn}{as} \PYG{n+nn}{plt}
+\PYG{c+c1}{\PYGZsh{}import matplotlib}
+\PYG{c+c1}{\PYGZsh{}matplotlib.use(\PYGZsq{}TkAgg\PYGZsq{})}
+\PYG{c+c1}{\PYGZsh{}import matplotlib.pyplot as plt}
+
+\PYG{k}{def} \PYG{n+nf}{mandelbrot}\PYG{p}{(} \PYG{n}{h}\PYG{p}{,}\PYG{n}{w}\PYG{p}{,} \PYG{n}{maxit}\PYG{o}{=}\PYG{l+m+mi}{20} \PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Returns an image of the Mandelbrot fractal of size (h,w).\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{y}\PYG{p}{,}\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{ogrid}\PYG{p}{[} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.4}\PYG{p}{:}\PYG{l+m+mf}{1.4}\PYG{p}{:}\PYG{n}{h}\PYG{o}{*}\PYG{l+m+mi}{1j}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{l+m+mf}{0.8}\PYG{p}{:}\PYG{n}{w}\PYG{o}{*}\PYG{l+m+mi}{1j} \PYG{p}{]}
+    \PYG{n}{c} \PYG{o}{=} \PYG{n}{x}\PYG{o}{+}\PYG{n}{y}\PYG{o}{*}\PYG{l+m+mi}{1j}
+    \PYG{n}{z} \PYG{o}{=} \PYG{n}{c}
+    \PYG{n}{divtime} \PYG{o}{=} \PYG{n}{maxit} \PYG{o}{+} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{z}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n+nb}{int}\PYG{p}{)}
+
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{maxit}\PYG{p}{):}
+\PYG{o}{\PYGZca{}\PYGZca{}}\PYG{n}{Iz} \PYG{o}{=} \PYG{n}{z}\PYG{o}{**}\PYG{l+m+mi}{2} \PYG{o}{+} \PYG{n}{c}
+\PYG{o}{\PYGZca{}\PYGZca{}}\PYG{n}{Idiverge} \PYG{o}{=} \PYG{n}{z}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{conj}\PYG{p}{(}\PYG{n}{z}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{2}\PYG{o}{**}\PYG{l+m+mi}{2}            \PYG{c+c1}{\PYGZsh{} who is diverging}
+\PYG{o}{\PYGZca{}\PYGZca{}}\PYG{n}{Idiv\PYGZus{}now} \PYG{o}{=} \PYG{n}{diverge} \PYG{o}{\PYGZam{}} \PYG{p}{(}\PYG{n}{divtime}\PYG{o}{==}\PYG{n}{maxit}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} who is diverging now}
+\PYG{o}{\PYGZca{}\PYGZca{}}\PYG{n}{Idivtime}\PYG{p}{[}\PYG{n}{div\PYGZus{}now}\PYG{p}{]} \PYG{o}{=} \PYG{n}{i}                  \PYG{c+c1}{\PYGZsh{} note when}
+\PYG{o}{\PYGZca{}\PYGZca{}}\PYG{n}{Iz}\PYG{p}{[}\PYG{n}{diverge}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{2}                        \PYG{c+c1}{\PYGZsh{} avoid diverging too much}
+
+    \PYG{k}{return} \PYG{n}{divtime}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{imshow}\PYG{p}{(}\PYG{n}{mandelbrot}\PYG{p}{(}\PYG{l+m+mi}{400}\PYG{p}{,}\PYG{l+m+mi}{400}\PYG{p}{))}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

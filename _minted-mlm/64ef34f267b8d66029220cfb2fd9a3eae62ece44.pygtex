@@ -1,0 +1,33 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k+kn}{as} \PYG{n+nn}{np}
+
+\PYG{n}{arr} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{l+m+mi}{36}\PYG{p}{)}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{)}
+\PYG{n}{arr}
+
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{visualize0:\PYGZhy{}}
+
+\PYG{l+s+sd}{00 01 02 03 04 05 06 07 08 09 10 11}
+\PYG{l+s+sd}{12 13 14 15 16 17 18 19 20 21 22 23}
+\PYG{l+s+sd}{24 25 26 27 28 29 30 31 32 33 34 35}
+
+\PYG{l+s+sd}{00 01 02}
+\PYG{l+s+sd}{03 04 05}
+\PYG{l+s+sd}{06 07 08}
+\PYG{l+s+sd}{09 10 11}
+
+\PYG{l+s+sd}{[\PYGZsh{}3 items}
+\PYG{l+s+sd}{[\PYGZsh{}4 items}
+\PYG{l+s+sd}{[]}
+\PYG{l+s+sd}{[]}
+\PYG{l+s+sd}{[]}
+\PYG{l+s+sd}{[]}
+\PYG{l+s+sd}{]...}
+\PYG{l+s+sd}{]}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{n}{a} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{])}
+\PYG{n}{b} \PYG{o}{=} \PYG{l+m+mi}{2}
+\PYG{n}{b\PYGZus{}broadcasted} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{broadcast}\PYG{p}{(}\PYG{n}{a}\PYG{p}{,}\PYG{n}{b}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{b\PYGZus{}broadcasted}\PYG{p}{))}
+\PYG{c+c1}{\PYGZsh{} rest of this tutorial seemed a bit advanced, skip for now, come back later}
+\end{Verbatim}

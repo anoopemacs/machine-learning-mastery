@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{sys}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{sys}\PYG{o}{.}\PYG{n}{path}\PYG{p}{)}
+\end{Verbatim}
