@@ -148,6 +148,10 @@ Examples of high-variance machine learning algorithms include: Decision Trees, k
 
 Fig 1. bulls-eye visualise http://scott.fortmann-roe.com/docs/BiasVariance.html
 
+skill of the model, a score with 
+a high variance = (that may change a lot based on the data used to fit the model), or 
+a high bias = (such as an overestimate of the skill of the model).
+
 ** 1 - install
 *** next time try using this tutorial https://sourabhbajaj.com/mac-setup/Python/numpy.html
 *** make a new virtualenv
@@ -266,12 +270,19 @@ Fixed some errors using: pip install nose pyparsing python-dateutil pep8
       print(args)
 
   accepts_variable_number_of_arguments(1,2,3)
-    
+
   def accepts_variable_number_of_keyword_arguments(**kwargs):
       print(type(kwargs))
       print(kwargs)
 
   accepts_variable_number_of_keyword_arguments(name="anoop", work="code")
+
+  def accepts_both_args_and_kwargs(*args, **kwargs):
+      print(args)
+      print("------")
+      print(kwargs)
+
+  accepts_both_args_and_kwargs(1,2,3,a="4",b="5",last0="6")
 #+END_SRC
 
 #+RESULTS:
@@ -733,10 +744,10 @@ Explore more advanced feature engineering such as Binarizing.
  are held back and used to estimate the accuracy of the model on
  unseen data.
 
-*** Google Developers intro to ml
+** Google Developers intro to ml
 complete google developers course, its a pre-requisite for this lesson as per me
 
-**** 1 hello apple or orange using decision tree
+*** 1 hello apple or orange using decision tree
 #+BEGIN_SRC python :results output
   from sklearn import tree
   features_original = [[140, "smooth"], [130, "smooth"], [150, "bumpy"], [170, "bumpy"]] #weight, texture of fruit
@@ -756,7 +767,7 @@ complete google developers course, its a pre-requisite for this lesson as per me
 #+END_SRC
 
 
-**** 2 Decision Tree visualization
+*** 2 Decision Tree visualization
 
 #+BEGIN_SRC python :results file
   from sklearn.datasets import load_iris
@@ -807,3 +818,236 @@ complete google developers course, its a pre-requisite for this lesson as per me
 
 
 
+
+** 7 - Resampling
+
+*** https://machinelearningmastery.com/k-fold-cross-validation/
+Shuffle the dataset randomly.
+Split the dataset into k groups
+For each unique group:
+Take the group as a hold out or test data set
+Take the remaining groups as a training data set
+Fit a model on the training set and evaluate it on the test set
+Retain the evaluation score and discard the model
+Summarize the skill of the model using the sample of model evaluation scores
+
+
+k-fold cross validation
+leave one out cross validation = n-fold cross validation
+
+Train/Test Split: = 1-fold cross validation
+(Taken to one extreme, k may be set to 1 such that a single train/test split is created to evaluate the model.)
+
+To summarize, there is a bias-variance trade-off associated with the
+choice of k in k-fold cross-validation. Typically, given these
+considerations, one performs k-fold cross-validation using k = 5 or k
+= 10, as these values have been shown empirically to yield test error
+rate estimates that suffer neither from excessively high bias nor from
+very high variance.
+
+KFold() scikit-learn class can be used
+
+#+BEGIN_SRC python :results file
+  from sklearn.model_selection import KFold
+  import numpy
+
+  array = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
+  na = numpy.array(array)
+
+  my_kfold = KFold(n_splits=3, shuffle=True, random_state=6)
+
+  #split method generates the indices
+  for train, test in my_kfold.split(na):
+      print("indices for train and test respectively", train, test)
+      print("actual train and test data respectively", na[train], na[test])
+      print()
+
+#+END_SRC
+
+#+RESULTS:
+[[file:None]]
+
+
+*** Example = apply 10-fold to diabetes data
+use scikit-learn to estimate the accuracy of the Logistic Regression
+algorithm on the Pima Indians onset of diabetes dataset using 10-fold
+cross validation.
+
+#+ATTR_ORG: :width 800px
+Emacs help: [[file:screenshots0/Screenshot%202018-12-13%20at%2012.57.01%20PM.png][file:~/ml/flipshope/screenshots0/Screenshot 2018-12-13 at 12.57.01 PM.png]]
+I used decision tree to fit this data
+#+BEGIN_SRC python :results file
+  import pandas as pd
+  my_names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+  df = pd.read_csv("https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv", names=my_names)
+
+  array = df.values
+  print(array)
+
+  features = array[:,:-1]
+  is_diabetic = array[:,-1:]
+
+  from sklearn.model_selection import cross_val_score
+  from sklearn.model_selection import KFold
+
+  my_kfold = KFold(n_splits=10, random_state=6)
+
+  #my_kfold.split(features)
+  """
+  X = []
+  y = []
+  clf = tree.DecisionTreeClassifier()
+  clf.fit(X, y)
+  print("prediction:", clf.predict(X_test), " // actual:", y_test)
+  """
+  from sklearn import tree
+  clf = tree.DecisionTreeClassifier()
+  results = cross_val_score(clf, features, is_diabetic, cv=my_kfold)
+  print(f"Mean accuracy: {results.mean()}, Sdev: {results.std()}")
+#+END_SRC
+#+ATTR_ORG: :width 800px
+
+
+Example given on website use LogisticRegression
+#+BEGIN_SRC python :results file
+  # Evaluate using Cross Validation
+  from pandas import read_csv
+  from sklearn.model_selection import KFold
+  from sklearn.model_selection import cross_val_score
+  from sklearn.linear_model import LogisticRegression
+  url = "https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv"
+  names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+  dataframe = read_csv(url, names=names)
+  array = dataframe.values
+  X = array[:,0:8]
+  Y = array[:,8]
+  kfold = KFold(n_splits=10, random_state=7)
+  model = LogisticRegression()
+  results = cross_val_score(model, X, Y, cv=kfold)
+
+  print(f"Mean accuracy: {results.mean()}, Sdev: {results.std()}")
+
+#+END_SRC
+#+ATTR_ORG: :width 800px
+
+** 8 - Algorithm evaluation metrics
+stopped this lesson in between and skipped for now
+https://machinelearningmastery.com/metrics-evaluate-machine-learning-algorithms-python/
+*Contents of this lesson:*
+/You will learn about 3 classification metrics:/
+Accuracy.
+Logarithmic Loss.
+Area Under ROC Curve.
+
+/Also 2 convenience methods for classification prediction results:/
+Confusion Matrix.
+Classification Report.
+
+/And 3 regression metrics:/
+Mean Absolute Error.
+Mean Squared Error.
+R^2.
+
+Classification metrics
+-for problems like diabetic or not (binary classification 0 or 1 is 'class')
+
+Regression metrics
+-for problems like boston house pricing (continuous price metric is 'class')
+
+All recipes evaluate the same algorithms, Logistic Regression for
+classification and Linear Regression for the regression problems
+
+*** Classification Metrics
+Apply Logistic Regression to diabetes problem and watch how each algo evaluation recipe works
+keeping the algo constant
+
+Recipes:
+**** Classification Accuracy.
+#+BEGIN_SRC python :results file
+  import pandas
+
+  feature_names = ["pregnant", "plasma_glucose", "blood_pressure", 
+                   "skin_fold_thickness", "serum_insulin", "bmi", "pedigree", "age", "class"]
+
+  df = pandas.read_csv("https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv", 
+                       names = feature_names)
+
+  array = df.values
+  X = array[:, :-1]
+  #y = array[:, -1:] #common mistake made by anoop
+
+  #What we are after is a single row for y
+  y = array[:, -1]
+
+  from sklearn.model_selection import KFold
+  from sklearn.model_selection import cross_val_score
+
+  my_kfold = KFold(n_splits=10, random_state=6)
+
+  from sklearn.linear_model import LogisticRegression
+  my_estimator_model = LogisticRegression(solver="lbfgs", max_iter=1000)
+
+  # scoring="name_of_algorithm_evaluation_metric0" refer to https://scikit-learn.org/stable/modules/model_evaluation.html
+  results = cross_val_score(my_estimator_model, X, y, cv=my_kfold, scoring="accuracy")
+
+  print(f"mean accuracy of diabetes predicition mu = {results.mean()}, sdev = {results.std()}")
+#+END_SRC
+#+ATTR_ORG: :width 800px
+**** Logarithmic Loss.
+Some evaluation metrics (like mean squared error) are naturally
+descending scores (the smallest score is best) and as such are
+reported as negative by the cross_val_score() function. This is
+important to note, because some scores will be reported as negative
+that by definition can never be negative.
+
+The theory of this I havent yet understood, skip for now
+http://wiki.fast.ai/index.php/Log_Loss
+
+#+BEGIN_SRC python :results file
+  scoring = "neg_log_loss"
+  #use above value in model_selection.cross_val_score()
+
+#+END_SRC
+#+ATTR_ORG: :width 800px
+**** Area Under ROC Curve.
+**** Confusion Matrix.
+**** Classification Report.
+Making use of convenience feature in sklearn
+#+BEGIN_SRC python :results file
+from sklearn.metrics import classification_report
+#+END_SRC
+#+ATTR_ORG: :width 800px
+
+*** Regression Metrics
+Mean Absolute Error.
+Mean Squared Error.
+R^2.
+
+** 9 - Spot checking
+*** https://machinelearningmastery.com/spot-check-classification-machine-learning-algorithms-python-scikit-learn/
+
+We will spot check 6 classification algorithms
+
+*2 Linear Machine Learning Algorithms:*
+Logistic Regression
+Linear Discriminant Analysis
+
+*4 Nonlinear Machine Learning Algorithms:*
+K-Nearest Neighbors
+Naive Bayes
+Classification and Regression Trees
+Support Vector Machines
+
+Lets try out on pima-indians-diabetes
+Lets suppose that mean() accuracy on 10-fold cross validation represents the performance of each algorithm
+
+
+
+
+*** https://machinelearningmastery.com/spot-check-regression-machine-learning-algorithms-python-scikit-learn/
+
+*** How to Develop a Reusable Framework to Spot-Check Algorithms in Python:
+https://machinelearningmastery.com/spot-check-machine-learning-algorithms-in-python/
+
+
+** 9 - 
