@@ -987,7 +987,7 @@ Recipes:
   my_kfold = KFold(n_splits=10, random_state=6)
 
   from sklearn.linear_model import LogisticRegression
-  my_estimator_model = LogisticRegression(solver="lbfgs", max_iter=1000)
+  my_estimator_model = LogisticRegression()
 
   # scoring="name_of_algorithm_evaluation_metric0" refer to https://scikit-learn.org/stable/modules/model_evaluation.html
   results = cross_val_score(my_estimator_model, X, y, cv=my_kfold, scoring="accuracy")
@@ -1037,11 +1037,23 @@ Linear Discriminant Analysis, lda
 *4 Nonlinear Machine Learning Algorithms:*
 K-Nearest Neighbors, knn
 Naive Bayes, nb
-Decision Trees (or Classification and Regression Trees, CART)
+Decision Trees (or Classification and Regression Trees, CART), in this case we will use classification tree
 Support Vector Machines, svm
 
 Lets try out on pima-indians-diabetes
 Lets suppose that mean() accuracy on 10-fold cross validation represents the performance of each algorithm
+
+DOUBT
+A note about sklearn.model_selection.cross_val_score() function:
+If no scoring is specified, the estimator(classifier) passed should have a 'score' method
+https://github.com/scikit-learn/scikit-learn/blob/14031f6/sklearn/model_selection/_validation.py#L36
+
+"By default, the score computed at each CV iteration is the score
+method of the estimator. It is possible to change this by using the
+scoring parameter." 
+https://stackoverflow.com/questions/42825714/what-is-the-score-function-formula-of-sklearn-model-selection-cross-val-score
+
+DOUBT ENDS
 
 #+BEGIN_SRC python :results output
   import pandas
@@ -1060,7 +1072,7 @@ Lets suppose that mean() accuracy on 10-fold cross validation represents the per
   from sklearn.linear_model import LogisticRegression
 
   my_kfold = KFold(n_splits=10, random_state=6)
-  classifier_lr = LogisticRegression(solver="lbfgs", max_iter=1000)
+  classifier_lr = LogisticRegression()
 
   results_logistic_regression = cross_val_score(classifier_lr, features, is_diabetic, cv=my_kfold)
   print("lr: ", results_logistic_regression.mean(), results_logistic_regression.std())
@@ -1086,7 +1098,7 @@ Lets suppose that mean() accuracy on 10-fold cross validation represents the per
   print("dt: ", results_dt.mean(), results_dt.std())
 
   from sklearn.svm import SVC
-  classifier_svc = SVC(gamma="auto")
+  classifier_svc = SVC()
   results_svc = cross_val_score(classifier_svc, features, is_diabetic, cv=my_kfold)
   print("svc: ", results_svc.mean(), results_svc.std())
 
@@ -1126,12 +1138,70 @@ Elastic Net Regression
 
 *3 Nonlinear Machine Learning Algorithms:*
 K-Nearest Neighbors
-Classification and Regression Trees
+Classification and Regression Trees, in this case we will use regression tree
 Support Vector Machines
 
+Lets try out on boston-house-pricing
+Lets suppose that the negative mean squared error measures on 10-fold cross validation represents the performance of each algorithm
 
+#+BEGIN_SRC python :results output
+  import pandas
+
+  data_names = ("crim", "zn", "indus", "chas", "nox", "rm", "age", "dis", "rad", "tax", "ptratio", "b", "lstat", "medv")
+  df = pandas.read_csv("https://raw.githubusercontent.com/anoopemacs/Datasets/master/housing.csv", names=data_names)
+  #chas is binary, rest are all continuous features
+
+  array = df.values
+  features = array[:, :-1] #X
+  house_value = array[:, -1] #y
+
+  from sklearn.model_selection import KFold
+  my_kfold = KFold(n_splits=10, random_state=6)
+  from sklearn.model_selection import cross_val_score
+
+  #LINEAR REGRESSION MODELS x 4
+
+  from sklearn.linear_model import LinearRegression
+  estimator_lr = LinearRegression()
+  results_lr = cross_val_score(estimator_lr, features, house_value, scoring="neg_mean_squared_error", cv=my_kfold)
+  print("lr: ", results_lr.mean())
+
+  from sklearn.linear_model import Ridge
+  estimator_rr = Ridge()
+  results_rr = cross_val_score(estimator_rr, features, house_value, scoring="neg_mean_squared_error", cv=my_kfold)
+  print("rr: ", results_rr.mean())
+
+  from sklearn.linear_model import Lasso
+  estimator_lasso = Lasso()
+  results_lasso = cross_val_score(estimator_lasso, features, house_value, scoring="neg_mean_squared_error", cv=my_kfold)
+  print("lasso: ", results_lasso.mean())
+
+  from sklearn.linear_model import ElasticNet
+  estimator_elasticnet = ElasticNet()
+  results_elasticnet = cross_val_score(estimator_elasticnet, features, house_value, scoring="neg_mean_squared_error", cv=my_kfold)
+  print("elasticnet: ", results_elasticnet.mean())
+
+  #NON LINEAR MODELS x 3
+  from sklearn.neighbors import KNeighborsRegressor
+  estimator_knn = KNeighborsRegressor()
+  results_knn = cross_val_score(estimator_knn, features, house_value, scoring="neg_mean_squared_error", cv=my_kfold)
+  print("knn: ", results_knn.mean())
+
+  from sklearn.tree import DecisionTreeRegressor
+  estimator_cart = DecisionTreeRegressor()
+  results_cart = cross_val_score(estimator_cart, features, house_value, scoring="neg_mean_squared_error", cv=my_kfold)
+  print("cart: ", results_cart.mean())
+
+  from sklearn.svm import SVR
+  estimator_svr = SVR()
+  results_svr = cross_val_score(estimator_svr, features, house_value, scoring="neg_mean_squared_error", cv=my_kfold)
+  print("svr: ", results_svr.mean())
+#+END_SRC
+#+ATTR_ORG: :width 800px
 *** How to Develop a Reusable Framework to Spot-Check Algorithms in Python:
 https://machinelearningmastery.com/spot-check-machine-learning-algorithms-in-python/
+This is an important lesson, indirectly I will also learn how to write/maintain my own python module as well
+But skip for now as I want to come back to topics like this in a second revision
 
 
 

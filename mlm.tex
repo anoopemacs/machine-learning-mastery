@@ -1,4 +1,4 @@
-% Created 2018-12-13 Thu 11:12
+% Created 2018-12-13 Thu 23:54
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -31,7 +31,7 @@
 
 
 \section{Anoop index:}
-\label{sec:orgf90e957}
+\label{sec:org60c6138}
 How Do I Get Started?
 Applied Machine Learning Process
 Linear Algebra
@@ -48,7 +48,7 @@ Deep Learning for Time Series Forecasting
 
 
 \section{experimental0}
-\label{sec:org27defa8}
+\label{sec:org462f6c1}
 chrome history suggestions based on a neural network
 read to get ideas for projects: \url{https://machinelearningmastery.com/self-study-machine-learning-projects/}
 maintain a ml daily blog?
@@ -58,10 +58,10 @@ buy toothbrush, bigger bulb for room
 sabji kitne ki hai app
 
 \section{How Do I Get Started?}
-\label{sec:org9e82374}
+\label{sec:org336bba8}
 
 \subsection{articles-read, worth rereading}
-\label{sec:org1294971}
+\label{sec:org4b43a9e}
 $$ Applied Machine Learning Process
  $$ Intermediate: Python Ecosystem.
 
@@ -85,16 +85,16 @@ $$ Machine Learning for Programmers
 Many of my students have used this approach to go on and do well in Kaggle competitions and get jobs as Machine Learning Engineers and Data Scientists.
 
 \subsection{notes}
-\label{sec:org8314f75}
+\label{sec:org2f6b6a8}
 
 \subsubsection{intro}
-\label{sec:org15fd328}
+\label{sec:org5e9fe48}
 sckit-learn is higher level than numpy \& scipy
 machine learning is a subset of artificial intelligence
 artificial learning is a more consistent name for machine learning
 
 \subsubsection{some key word definitions:}
-\label{sec:org9442e4b}
+\label{sec:org5135a72}
 Model: A machine learning model can be a mathematical representation
 of a real-world process. To generate a machine learning model you will
 need to provide training data to a machine learning algorithm to learn
@@ -166,10 +166,10 @@ experience and domain knowledge of the data scientist.
 
 
 \section{\url{https://machinelearningmastery.com/python-machine-learning-mini-course/}}
-\label{sec:org237c134}
+\label{sec:org8b26e2c}
 14Lessons
 \subsection{pre requisite \url{https://machinelearningmastery.com/gentle-introduction-to-the-bias-variance-trade-off-in-machine-learning/}}
-\label{sec:org021b4c9}
+\label{sec:org492cc74}
 \textbf{Bias Error}
 Bias are the simplifying assumptions made by a model to make the target function easier to learn.
 Low Bias: Suggests less assumptions about the form of the target function.
@@ -186,12 +186,16 @@ Examples of high-variance machine learning algorithms include: Decision Trees, k
 
 Fig 1. bulls-eye visualise \url{http://scott.fortmann-roe.com/docs/BiasVariance.html}
 
+skill of the model, a score with 
+a high variance = (that may change a lot based on the data used to fit the model), or 
+a high bias = (such as an overestimate of the skill of the model).
+
 \subsection{1 - install}
-\label{sec:org0dbafa5}
+\label{sec:orgaecae8c}
 \subsubsection{next time try using this tutorial \url{https://sourabhbajaj.com/mac-setup/Python/numpy.html}}
-\label{sec:org43304ab}
+\label{sec:orgb199b74}
 \subsubsection{make a new virtualenv}
-\label{sec:orgb04bc27}
+\label{sec:orgfb5f7f6}
 \begin{minted}[]{shell}
 pwd
 \end{minted}
@@ -210,7 +214,7 @@ which python
 \end{minted}
 
 \subsubsection{install \url{https://stackoverflow.com/questions/26319762/how-to-install-scipy-stack-with-pip-and-homebrew}}
-\label{sec:org9abf3a7}
+\label{sec:orge42f5a3}
 pip install numpy
 brew install gcc
 pip install scipy
@@ -225,7 +229,7 @@ brew install qt
 brew install sip
 \#after this edit the 2 scripts
 \subsubsection{check if properly isntalled using .\_\(_{\text{version}}\) \_ after import}
-\label{sec:org3f444de}
+\label{sec:orgc8aaeaa}
 
 using python snippets inside orgmode \url{https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-python.html}
 installed python-mode from package-list-packages for emacs
@@ -252,10 +256,10 @@ print(f'sklearn {sklearn.__version__}')
 \end{minted}
 
 \subsection{2 - python, pandas, numpy, mathplotlib veeery basics}
-\label{sec:orgb3e4198}
+\label{sec:org48e0601}
 
 \subsubsection{python, also refer in-y-minutes file for future reference}
-\label{sec:orgd4ef033}
+\label{sec:orgb17536d}
 \begin{minted}[]{python}
 if 1>2:
     print("wtf")
@@ -289,10 +293,17 @@ def accepts_variable_number_of_keyword_arguments(**kwargs):
     print(kwargs)
 
 accepts_variable_number_of_keyword_arguments(name="anoop", work="code")
+
+def accepts_both_args_and_kwargs(*args, **kwargs):
+    print(args)
+    print("------")
+    print(kwargs)
+
+accepts_both_args_and_kwargs(1,2,3,a="4",b="5",last0="6")
 \end{minted}
 
 \subsubsection{numpy basics}
-\label{sec:orgbeb06fc}
+\label{sec:orgef175d3}
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{screenshots0/Screenshot 2018-12-11 at 5.16.28 PM.png}
@@ -470,7 +481,7 @@ todo: switch to jupyter notebook instead of emacs:
 \url{https://github.com/gregsexton/ob-ipython}
 
 \subsubsection{matplotlib basics}
-\label{sec:org33dea43}
+\label{sec:org531a9f5}
 matplotlib, is written in pure Python and is heavily dependent on NumPy
 
 Matplotlib is conceptually divided into three parts:
@@ -504,7 +515,7 @@ plt.show()
 \end{minted}
 
 \subsubsection{Pandas -basics:}
-\label{sec:orgf77a506}
+\label{sec:orgeb9db5b}
 Todo:\url{https://pandas.pydata.org/pandas-docs/stable/dsintro.html\#dsintro}
 Todo:Official beginner tutorial: \url{https://pandas.pydata.org/pandas-docs/stable/10min.html}
 Todo: Intermediate - Julia Evans - \url{https://jvns.ca/blog/2013/12/22/cooking-with-pandas/}
@@ -554,7 +565,7 @@ print(p.shape)
 \end{minted}
 
 \subsection{3 - Load csv}
-\label{sec:orgfab12d4}
+\label{sec:orgcd7a4cc}
 \url{https://realpython.com/python-csv/}
 \url{https://github.com/jbrownlee/Datasets}
 
@@ -626,7 +637,7 @@ df3.to_csv('pandas_to_csv.csv')
 
 
 \subsection{4 - use pandas.DataFrame helper functions to describe data with statistics}
-\label{sec:orgcc50410}
+\label{sec:orgb13fc12}
 \begin{minted}[]{python}
 # Scatter Plot Matrix
 import matplotlib.pyplot as plt
@@ -644,7 +655,7 @@ plt.show()
 df.corr()
 \end{minted}
 \subsection{5 - Basic Data Visualization}
-\label{sec:orgfb49c57}
+\label{sec:org25875c1}
 Using pandas and matplotlib together
 \begin{minted}[]{python}
 # Scatter Plot Matrix
@@ -674,7 +685,7 @@ return "img/lesson5.png"
 
 
 \subsection{6 - Preprocessing data}
-\label{sec:org26d3593}
+\label{sec:org795ea72}
 
 Standardize numerical data (e.g. mean of 0 and standard deviation of 1) using the scale and center options.
 
@@ -726,24 +737,24 @@ df_standardized.describe() #you can see that mean=0, sdev=1 for each column
 
 
 \subsubsection{skip for now, come back later}
-\label{sec:org57b2bb5}
+\label{sec:org48c78c5}
 Normalize numerical data (e.g. to a range of 0-1) using the range option.
 Explore more advanced feature engineering such as Binarizing.
 
 \subsection{7 - Resampling}
-\label{sec:org3763536}
+\label{sec:org905b12a}
 statistical methods called resampling methods are used to split your training
 dataset up into subsets, some are used to train the model and others
 are held back and used to estimate the accuracy of the model on
 unseen data.
 
-\subsubsection{Google Developers intro to ml}
-\label{sec:org3cebe2c}
+\subsection{Google Developers intro to ml}
+\label{sec:org6617687}
 complete google developers course, its a pre-requisite for this lesson as per me
+\url{https://www.youtube.com/playlist?list=PLOU2XLYxmsIIuiBfYad6rFYQU\_jL2ryal}
 
-\begin{enumerate}
-\item 1 hello apple or orange using decision tree
-\label{sec:orgf508d50}
+\subsubsection{1 hello apple or orange using decision tree}
+\label{sec:orga541a96}
 \begin{minted}[]{python}
 from sklearn import tree
 features_original = [[140, "smooth"], [130, "smooth"], [150, "bumpy"], [170, "bumpy"]] #weight, texture of fruit
@@ -763,8 +774,8 @@ print(clf.predict([[200,0]]))
 \end{minted}
 
 
-\item 2 Decision Tree visualization
-\label{sec:org2d0386a}
+\subsubsection{2 Decision Tree visualization}
+\label{sec:orga0543d8}
 
 \begin{minted}[]{python}
 from sklearn.datasets import load_iris
@@ -809,5 +820,383 @@ graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
 graph.write_png("img/iris.png")
 return "img/iris.png"
 \end{minted}
+
+
+
+
+\subsection{7 - Resampling}
+\label{sec:org1b43e76}
+
+\subsubsection{\url{https://machinelearningmastery.com/k-fold-cross-validation/}}
+\label{sec:org517502d}
+Shuffle the dataset randomly.
+Split the dataset into k groups
+For each unique group:
+Take the group as a hold out or test data set
+Take the remaining groups as a training data set
+Fit a model on the training set and evaluate it on the test set
+Retain the evaluation score and discard the model
+Summarize the skill of the model using the sample of model evaluation scores
+
+
+k-fold cross validation
+leave one out cross validation = n-fold cross validation
+
+Train/Test Split: = 1-fold cross validation
+(Taken to one extreme, k may be set to 1 such that a single train/test split is created to evaluate the model.)
+
+To summarize, there is a bias-variance trade-off associated with the
+choice of k in k-fold cross-validation. Typically, given these
+considerations, one performs k-fold cross-validation using k = 5 or k
+= 10, as these values have been shown empirically to yield test error
+rate estimates that suffer neither from excessively high bias nor from
+very high variance.
+
+KFold() scikit-learn class can be used
+
+\begin{minted}[]{python}
+from sklearn.model_selection import KFold
+import numpy
+
+array = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
+na = numpy.array(array)
+
+my_kfold = KFold(n_splits=3, shuffle=True, random_state=6)
+
+#split method generates the indices
+for train, test in my_kfold.split(na):
+    print("indices for train and test respectively", train, test)
+    print("actual train and test data respectively", na[train], na[test])
+    print()
+
+\end{minted}
+
+
+\subsubsection{Example = apply 10-fold to diabetes data}
+\label{sec:orge9a9fea}
+use scikit-learn to estimate the accuracy of the Logistic Regression
+algorithm on the Pima Indians onset of diabetes dataset using 10-fold
+cross validation.
+
+Emacs help: \href{screenshots0/Screenshot\%202018-12-13\%20at\%2012.57.01\%20PM.png}{file:\textasciitilde{}/ml/flipshope/screenshots0/Screenshot 2018-12-13 at 12.57.01 PM.png}
+I used decision tree to fit this data
+\begin{minted}[]{python}
+import pandas as pd
+my_names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+df = pd.read_csv("https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv", names=my_names)
+
+array = df.values
+print(array)
+
+features = array[:,:-1]
+is_diabetic = array[:,-1:]
+
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import KFold
+
+my_kfold = KFold(n_splits=10, random_state=6)
+
+#my_kfold.split(features)
+"""
+X = []
+y = []
+clf = tree.DecisionTreeClassifier()
+clf.fit(X, y)
+print("prediction:", clf.predict(X_test), " // actual:", y_test)
+"""
+from sklearn import tree
+clf = tree.DecisionTreeClassifier()
+results = cross_val_score(clf, features, is_diabetic, cv=my_kfold)
+print(f"Mean accuracy: {results.mean()}, Sdev: {results.std()}")
+\end{minted}
+Example given on website use LogisticRegression
+\begin{minted}[]{python}
+# Evaluate using Cross Validation
+from pandas import read_csv
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import LogisticRegression
+url = "https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv"
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(url, names=names)
+array = dataframe.values
+X = array[:,0:8]
+Y = array[:,8]
+kfold = KFold(n_splits=10, random_state=7)
+model = LogisticRegression()
+results = cross_val_score(model, X, Y, cv=kfold)
+
+print(f"Mean accuracy: {results.mean()}, Sdev: {results.std()}")
+
+\end{minted}
+
+\subsection{8 - Algorithm evaluation metrics}
+\label{sec:orgef95110}
+stopped this lesson in between and skipped for now
+\url{https://machinelearningmastery.com/metrics-evaluate-machine-learning-algorithms-python/}
+
+\textbf{Contents of this lesson:}
+\emph{You will learn about 3 classification metrics:}
+Accuracy.
+Logarithmic Loss.
+Area Under ROC Curve.
+
+\emph{Also 2 convenience methods for classification prediction results:}
+Confusion Matrix.
+Classification Report.
+
+\emph{And 3 regression metrics:}
+Mean Absolute Error.
+Mean Squared Error.
+R\(^{\text{2}}\).
+
+Classification metrics
+-for problems like diabetic or not (binary classification 0 or 1 is 'class')
+
+Regression metrics
+-for problems like boston house pricing (continuous price metric is 'class')
+
+All recipes evaluate the same algorithms, Logistic Regression for
+classification and Linear Regression for the regression problems
+
+\subsubsection{Classification Metrics}
+\label{sec:org4e25b5e}
+Apply Logistic Regression to diabetes problem and watch how each algo evaluation recipe works
+keeping the algo constant
+
+Recipes:
+\begin{enumerate}
+\item Classification Accuracy.
+\label{sec:org091b394}
+\begin{minted}[]{python}
+import pandas
+
+feature_names = ["pregnant", "plasma_glucose", "blood_pressure", 
+		 "skin_fold_thickness", "serum_insulin", "bmi", "pedigree", "age", "class"]
+
+df = pandas.read_csv("https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv", 
+		     names = feature_names)
+
+array = df.values
+X = array[:, :-1]
+#y = array[:, -1:] #common mistake made by anoop
+
+#What we are after is a single row for y
+y = array[:, -1]
+
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+
+my_kfold = KFold(n_splits=10, random_state=6)
+
+from sklearn.linear_model import LogisticRegression
+my_estimator_model = LogisticRegression()
+
+# scoring="name_of_algorithm_evaluation_metric0" refer to https://scikit-learn.org/stable/modules/model_evaluation.html
+results = cross_val_score(my_estimator_model, X, y, cv=my_kfold, scoring="accuracy")
+
+print(f"mean accuracy of diabetes predicition mu = {results.mean()}, sdev = {results.std()}")
+\end{minted}
+\item Logarithmic Loss.
+\label{sec:org6804dc0}
+Some evaluation metrics (like mean squared error) are naturally
+descending scores (the smallest score is best) and as such are
+reported as negative by the cross\(_{\text{val}}\)\(_{\text{score}}\)() function. This is
+important to note, because some scores will be reported as negative
+that by definition can never be negative.
+
+The theory of this I havent yet understood, skip for now
+\url{http://wiki.fast.ai/index.php/Log\_Loss}
+
+\begin{minted}[]{python}
+scoring = "neg_log_loss"
+#use above value in model_selection.cross_val_score()
+
+\end{minted}
+\item Area Under ROC Curve.
+\label{sec:org9284a35}
+\item Confusion Matrix.
+\label{sec:org8d635ab}
+\item Classification Report.
+\label{sec:orgdcb010a}
+Making use of convenience feature in sklearn
+\begin{minted}[]{python}
+from sklearn.metrics import classification_report
+\end{minted}
 \end{enumerate}
+
+\subsubsection{Regression Metrics}
+\label{sec:orgd478be4}
+Mean Absolute Error.
+Mean Squared Error.
+R\(^{\text{2}}\).
+
+\subsection{9 - Spot checking}
+\label{sec:org85ed88c}
+\subsubsection{\url{https://machinelearningmastery.com/spot-check-classification-machine-learning-algorithms-python-scikit-learn/}}
+\label{sec:orga09331e}
+
+We will spot check 6 classification algorithms
+
+\textbf{2 Linear Machine Learning Algorithms:}
+Logistic Regression, lr
+Linear Discriminant Analysis, lda
+
+\textbf{4 Nonlinear Machine Learning Algorithms:}
+K-Nearest Neighbors, knn
+Naive Bayes, nb
+Decision Trees (or Classification and Regression Trees, CART), in this case we will use classification tree
+Support Vector Machines, svm
+
+Lets try out on pima-indians-diabetes
+Lets suppose that mean() accuracy on 10-fold cross validation represents the performance of each algorithm
+
+DOUBT
+A note about sklearn.model\(_{\text{selection.cross}}\)\(_{\text{val}}\)\(_{\text{score}}\)() function:
+If no scoring is specified, the estimator(classifier) passed should have a 'score' method
+\url{https://github.com/scikit-learn/scikit-learn/blob/14031f6/sklearn/model\_selection/\_validation.py\#L36}
+
+"By default, the score computed at each CV iteration is the score
+method of the estimator. It is possible to change this by using the
+scoring parameter." 
+\url{https://stackoverflow.com/questions/42825714/what-is-the-score-function-formula-of-sklearn-model-selection-cross-val-score}
+
+DOUBT ENDS
+
+\begin{minted}[]{python}
+import pandas
+
+feature_names = ["pregnant", "plasma_glucose", "blood_pressure", 
+		 "skin_fold_thickness", "serum_insulin", "bmi", "pedigree", "age", "class"]
+df = pandas.read_csv("https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv", names=feature_names)
+
+array = df.values
+
+features = array[:, :-1]
+is_diabetic = array[:, -1]
+
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import LogisticRegression
+
+my_kfold = KFold(n_splits=10, random_state=6)
+classifier_lr = LogisticRegression()
+
+results_logistic_regression = cross_val_score(classifier_lr, features, is_diabetic, cv=my_kfold)
+print("lr: ", results_logistic_regression.mean(), results_logistic_regression.std())
+
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+classifier_lda = LinearDiscriminantAnalysis()
+results_linear_discriminant_analysis = cross_val_score(classifier_lda, features, is_diabetic, cv=my_kfold)
+print("lda: ", results_linear_discriminant_analysis.mean(), results_linear_discriminant_analysis.std())
+
+from sklearn.neighbors import KNeighborsClassifier
+classifier_knn = KNeighborsClassifier()
+results_knn = cross_val_score(classifier_knn, features, is_diabetic, cv=my_kfold)
+print("knn: ", results_knn.mean(), results_knn.std())
+
+from sklearn.naive_bayes import GaussianNB
+classifier_nb = GaussianNB()
+results_nb = cross_val_score(classifier_nb, features, is_diabetic, cv=my_kfold)
+print("nb: ", results_nb.mean(), results_nb.std())
+
+from sklearn.tree import DecisionTreeClassifier
+classifier_dt = DecisionTreeClassifier()
+results_dt = cross_val_score(classifier_dt, features, is_diabetic, cv=my_kfold)
+print("dt: ", results_dt.mean(), results_dt.std())
+
+from sklearn.svm import SVC
+classifier_svc = SVC()
+results_svc = cross_val_score(classifier_svc, features, is_diabetic, cv=my_kfold)
+print("svc: ", results_svc.mean(), results_svc.std())
+
+\end{minted}
+
+Note:python submodule doubt
+\url{https://stackoverflow.com/questions/12229580/python-importing-a-sub-package-or-sub-module}
+Try it out yourself
+\begin{minted}[]{python}
+import sklearn
+dir(sklearn)
+import sklearn.discriminant_analysis
+dir(sklearn) #now more things are shown, why?
+\end{minted}
+
+
+\subsubsection{\url{https://machinelearningmastery.com/spot-check-regression-machine-learning-algorithms-python-scikit-learn/}}
+\label{sec:org17d44a4}
+We will spot check 7 regression algorithms
+
+\textbf{4 Linear Machine Learning Algorithms:}
+Linear Regression
+Ridge Regression
+LASSO Linear Regression
+Elastic Net Regression
+
+\textbf{3 Nonlinear Machine Learning Algorithms:}
+K-Nearest Neighbors
+Classification and Regression Trees, in this case we will use regression tree
+Support Vector Machines
+
+Lets try out on boston-house-pricing
+Lets suppose that the negative mean squared error measures on 10-fold cross validation represents the performance of each algorithm
+
+\begin{minted}[]{python}
+import pandas
+
+data_names = ("crim", "zn", "indus", "chas", "nox", "rm", "age", "dis", "rad", "tax", "ptratio", "b", "lstat", "medv")
+df = pandas.read_csv("https://raw.githubusercontent.com/anoopemacs/Datasets/master/housing.csv", names=data_names)
+#chas is binary, rest are all continuous features
+
+array = df.values
+features = array[:, :-1] #X
+house_value = array[:, -1] #y
+
+from sklearn.model_selection import KFold
+my_kfold = KFold(n_splits=10, random_state=6)
+from sklearn.model_selection import cross_val_score
+
+#LINEAR REGRESSION MODELS x 4
+
+from sklearn.linear_model import LinearRegression
+estimator_lr = LinearRegression()
+results_lr = cross_val_score(estimator_lr, features, house_value, scoring="neg_mean_squared_error", cv=my_kfold)
+print("lr: ", results_lr.mean())
+
+from sklearn.linear_model import Ridge
+estimator_rr = Ridge()
+results_rr = cross_val_score(estimator_rr, features, house_value, scoring="neg_mean_squared_error", cv=my_kfold)
+print("rr: ", results_rr.mean())
+
+from sklearn.linear_model import Lasso
+estimator_lasso = Lasso()
+results_lasso = cross_val_score(estimator_lasso, features, house_value, scoring="neg_mean_squared_error", cv=my_kfold)
+print("lasso: ", results_lasso.mean())
+
+from sklearn.linear_model import ElasticNet
+estimator_elasticnet = ElasticNet()
+results_elasticnet = cross_val_score(estimator_elasticnet, features, house_value, scoring="neg_mean_squared_error", cv=my_kfold)
+print("elasticnet: ", results_elasticnet.mean())
+
+#NON LINEAR MODELS x 3
+from sklearn.neighbors import KNeighborsRegressor
+estimator_knn = KNeighborsRegressor()
+results_knn = cross_val_score(estimator_knn, features, house_value, scoring="neg_mean_squared_error", cv=my_kfold)
+print("knn: ", results_knn.mean())
+
+from sklearn.tree import DecisionTreeRegressor
+estimator_cart = DecisionTreeRegressor()
+results_cart = cross_val_score(estimator_cart, features, house_value, scoring="neg_mean_squared_error", cv=my_kfold)
+print("cart: ", results_cart.mean())
+
+from sklearn.svm import SVR
+estimator_svr = SVR()
+results_svr = cross_val_score(estimator_svr, features, house_value, scoring="neg_mean_squared_error", cv=my_kfold)
+print("svr: ", results_svr.mean())
+\end{minted}
+\subsubsection{How to Develop a Reusable Framework to Spot-Check Algorithms in Python:}
+\label{sec:org20123d9}
+\url{https://machinelearningmastery.com/spot-check-machine-learning-algorithms-in-python/}
+This is an important lesson, indirectly I will also learn how to write/maintain my own python module as well
+But skip for now as I want to come back to topics like this in a second revision
 \end{document}
