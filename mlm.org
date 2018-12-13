@@ -746,6 +746,7 @@ Explore more advanced feature engineering such as Binarizing.
 
 ** Google Developers intro to ml
 complete google developers course, its a pre-requisite for this lesson as per me
+https://www.youtube.com/playlist?list=PLOU2XLYxmsIIuiBfYad6rFYQU_jL2ryal
 
 *** 1 hello apple or orange using decision tree
 #+BEGIN_SRC python :results output
@@ -933,6 +934,7 @@ Example given on website use LogisticRegression
 ** 8 - Algorithm evaluation metrics
 stopped this lesson in between and skipped for now
 https://machinelearningmastery.com/metrics-evaluate-machine-learning-algorithms-python/
+
 *Contents of this lesson:*
 /You will learn about 3 classification metrics:/
 Accuracy.
@@ -1029,25 +1031,107 @@ R^2.
 We will spot check 6 classification algorithms
 
 *2 Linear Machine Learning Algorithms:*
-Logistic Regression
-Linear Discriminant Analysis
+Logistic Regression, lr
+Linear Discriminant Analysis, lda
 
 *4 Nonlinear Machine Learning Algorithms:*
-K-Nearest Neighbors
-Naive Bayes
-Classification and Regression Trees
-Support Vector Machines
+K-Nearest Neighbors, knn
+Naive Bayes, nb
+Decision Trees (or Classification and Regression Trees, CART)
+Support Vector Machines, svm
 
 Lets try out on pima-indians-diabetes
 Lets suppose that mean() accuracy on 10-fold cross validation represents the performance of each algorithm
 
+#+BEGIN_SRC python :results output
+  import pandas
 
+  feature_names = ["pregnant", "plasma_glucose", "blood_pressure", 
+                   "skin_fold_thickness", "serum_insulin", "bmi", "pedigree", "age", "class"]
+  df = pandas.read_csv("https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv", names=feature_names)
+
+  array = df.values
+
+  features = array[:, :-1]
+  is_diabetic = array[:, -1]
+
+  from sklearn.model_selection import KFold
+  from sklearn.model_selection import cross_val_score
+  from sklearn.linear_model import LogisticRegression
+
+  my_kfold = KFold(n_splits=10, random_state=6)
+  classifier_lr = LogisticRegression(solver="lbfgs", max_iter=1000)
+
+  results_logistic_regression = cross_val_score(classifier_lr, features, is_diabetic, cv=my_kfold)
+  print("lr: ", results_logistic_regression.mean(), results_logistic_regression.std())
+
+  from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+  classifier_lda = LinearDiscriminantAnalysis()
+  results_linear_discriminant_analysis = cross_val_score(classifier_lda, features, is_diabetic, cv=my_kfold)
+  print("lda: ", results_linear_discriminant_analysis.mean(), results_linear_discriminant_analysis.std())
+
+  from sklearn.neighbors import KNeighborsClassifier
+  classifier_knn = KNeighborsClassifier()
+  results_knn = cross_val_score(classifier_knn, features, is_diabetic, cv=my_kfold)
+  print("knn: ", results_knn.mean(), results_knn.std())
+
+  from sklearn.naive_bayes import GaussianNB
+  classifier_nb = GaussianNB()
+  results_nb = cross_val_score(classifier_nb, features, is_diabetic, cv=my_kfold)
+  print("nb: ", results_nb.mean(), results_nb.std())
+
+  from sklearn.tree import DecisionTreeClassifier
+  classifier_dt = DecisionTreeClassifier()
+  results_dt = cross_val_score(classifier_dt, features, is_diabetic, cv=my_kfold)
+  print("dt: ", results_dt.mean(), results_dt.std())
+
+  from sklearn.svm import SVC
+  classifier_svc = SVC(gamma="auto")
+  results_svc = cross_val_score(classifier_svc, features, is_diabetic, cv=my_kfold)
+  print("svc: ", results_svc.mean(), results_svc.std())
+
+#+END_SRC
+
+#+RESULTS:
+: lr:  0.7760423786739576 0.051575452620868226
+: lda:  0.773462064251538 0.05159180390446138
+: knn:  0.7265550239234451 0.06182131406705549
+: nb:  0.7551777170198223 0.04276593954064409
+: dt:  0.7043233082706767 0.06725181687871121
+: svc:  0.6510252904989747 0.07214083485055327
+
+#+ATTR_ORG: :width 800px
+
+
+Note:python submodule doubt
+https://stackoverflow.com/questions/12229580/python-importing-a-sub-package-or-sub-module
+Try it out yourself
+#+BEGIN_SRC python :results file
+  import sklearn
+  dir(sklearn)
+  import sklearn.discriminant_analysis
+  dir(sklearn) #now more things are shown, why?
+#+END_SRC
+#+ATTR_ORG: :width 800px
 
 
 *** https://machinelearningmastery.com/spot-check-regression-machine-learning-algorithms-python-scikit-learn/
+We will spot check 7 regression algorithms
+
+*4 Linear Machine Learning Algorithms:*
+Linear Regression
+Ridge Regression
+LASSO Linear Regression
+Elastic Net Regression
+
+*3 Nonlinear Machine Learning Algorithms:*
+K-Nearest Neighbors
+Classification and Regression Trees
+Support Vector Machines
+
 
 *** How to Develop a Reusable Framework to Spot-Check Algorithms in Python:
 https://machinelearningmastery.com/spot-check-machine-learning-algorithms-in-python/
 
 
-** 9 - 
+
