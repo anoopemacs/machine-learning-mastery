@@ -1375,3 +1375,51 @@ Tune the parameters of an algorithm using a random search.
 
 #+ATTR_ORG: :width 800px
 
+** 12 - Improve accuracy with Ensemble Predictions
+combine predictions from multiple models
+
+Practice bagging ensembles with the random forest and extra trees algorithms.
+Practice boosting ensembles with the gradient boosting machine and AdaBoost algorithms.
+Practice voting ensembles using by combining the predictions from multiple models together.
+
+skip for now till you understand what is bagging and stochastic gradient boosting
+
+** 13 - Saving model to file for future reuse
+We use 'pickle' to save model to file
+#+BEGIN_SRC python :results file
+  import pandas
+  data_names = ["pregnant", "plasma_glucose", "blood_pressure", 
+                "skin_fold_thickness", "serum_insulin", "bmi", "pedigree", "age", "class"]
+  df = pandas.read_csv("https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv", names=data_names)
+
+  array = df.values
+  X = array[:, :-1]
+  y = array[:, -1]
+
+  from sklearn.model_selection import train_test_split
+
+  X_train, X_test, y_train, y_test = train_test_split(X, y)
+
+  from sklearn.linear_model import LogisticRegression
+  my_estimator = LogisticRegression() #this is the model
+
+  my_estimator.fit(X_train, y_train)
+
+  #save trained model to disk for reuse
+  import pickle
+  pickle.dump(my_estimator, open("lesson13_saved_model.sav", 'wb')) #alternative is to use with open syntax
+  #wb = write binary
+
+  #later on
+  #loading from saved binary data on file
+  loaded_model = pickle.load(open("lesson13_saved_model.sav", "rb"))
+
+  #saved model try on test data
+  result = loaded_model.score(X_test, y_test)
+  print(result)
+#+END_SRC
+#+ATTR_ORG: :width 800px
+
+** 14 - end to end
+skip for now, later on pick something from UCI dataset and do on your own
+after some spaced repetition
