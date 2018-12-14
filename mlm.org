@@ -1031,7 +1031,7 @@ R^2.
 We will spot check 6 classification algorithms
 
 *2 Linear Machine Learning Algorithms:*
-Logistic Regression, lr
+Logistic Regression, lr                 ;;;; NOTE: ALTHOUGH ITS A CLASSIFICATION PROBLEM, THIS MODEL STILL HAS /'Regression'/ IN ITS NAME
 Linear Discriminant Analysis, lda
 
 *4 Nonlinear Machine Learning Algorithms:*
@@ -1204,4 +1204,174 @@ This is an important lesson, indirectly I will also learn how to write/maintain 
 But skip for now as I want to come back to topics like this in a second revision
 
 
+
+
+** 10 - Model selection by comparison between models
+Advice to beginners from JSAT java ml package author edward raff:
+http://jsatml.blogspot.com/2014/10/beginner-advice-on-learning-to.html
+His book recommendations: 
+
+*The Elements of Statistical Learning*
+This is a very common book for people to learn and get, especially
+since it is free. In my opinion, the book isn't particularly great in
+any area – but its not particularly bad at anything either. Though if
+you are more of a visual learner this book has lots of graphs and
+diagrams to try and give intuitions of how things work / what's going
+on. If your goal is to implement for learning, recreating their
+visual results would be an excellent exercise.
+
+*Machine learning: a Probabilistic Perspective*
+This is currently my favorite ML book. Murphy does an excellent job
+explain the algorithms, and relating them to each other to help foster
+a deeper understanding. Though the learning curve is a bit wonky at
+times, and the later chapters don’t have quite as much lower level
+details – its overall excellent. For implementing in particular, much
+more refined (and explained) pseudo code is present for many of the
+algorithms and for many of the chapters and algorithms goes through
+the math needed to develop these algorithms. Occasionally some
+implementation considerations are discussed. While not often, it is
+more than most books on Machine Learning.
+
+https://machinelearningmastery.com/compare-machine-learning-algorithms-python-scikit-learn/
+
+For fair comparision of algorithms use the same random_state=seed=6
+
+Lets compare the following on binary classification of pima-indians-diabetes dataset
+LR: Logistic Regression
+LDA: Linear Discriminant Analysis
+KNN: K-Nearest Neighbors
+CART: Classification and Regression Trees
+NB: Naive Bayes
+SVM: Support Vector Machines
+
+*NOTE: trick to use to find dir(sklearn) doesnt give all submodules,*
+use linux ls:
+ls /Users/anoop/ml/flipshope/mlm2/lib/python3.7/site-packages/sklearn/
+
+#+BEGIN_SRC python :results file
+  #hide warnings
+  def warn(*args, **kwargs):
+      pass
+  import warnings
+  warnings.warn = warn
+
+  import pandas
+  data_names = ["pregnant", "plasma_glucose", "blood_pressure", 
+                "skin_fold_thickness", "serum_insulin", "bmi", "pedigree", "age", "class"]
+  df = pandas.read_csv("https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv", names=data_names)
+
+  print(df.shape)
+
+  array = df.values
+  features = array[:, :-1]
+  is_diabetic = array[:, -1]
+
+  #print(features)
+  #print(is_diabetic)
+
+  from sklearn.model_selection import KFold
+  my_kfold = KFold(n_splits=10, random_state=6)
+
+  from sklearn.model_selection import cross_val_score
+
+  models = []
+
+  from sklearn.linear_model import LogisticRegression
+  models.append(("LR", LogisticRegression()))
+
+  from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+  models.append(("LDA", LinearDiscriminantAnalysis()))
+
+  from sklearn.neighbors import KNeighborsClassifier
+  models.append(("KNN", KNeighborsClassifier()))
+
+  from sklearn.tree import DecisionTreeClassifier
+  models.append(("CART", DecisionTreeClassifier()))
+
+  from sklearn.naive_bayes import GaussianNB
+  models.append(("NB", GaussianNB()))
+
+  from sklearn.svm import SVC
+  models.append(("SVM", SVC()))
+
+  results = []
+  model_names = []
+
+  for (name, model) in models:
+      #print(name, model)
+      try:
+          result = cross_val_score(model, features, is_diabetic, cv=my_kfold, scoring='accuracy')
+          #print(name, ": ", result.mean(), " // ", result.std())
+          results.append(result)
+          model_names.append(name)
+      except Exception:
+          print(name)
+          continue
+
+  print(model_names)
+  print(results)
+  import numpy
+
+
+  from matplotlib import pyplot
+  pyplot.boxplot(results, labels=model_names)
+  #pyplot.show()
+  pyplot.savefig("img/model-selection-by-comparison.png")
+  return "img/model-selection-by-comparison.png"
+#+END_SRC
+
+#+RESULTS:
+[[file:img/model-selection-by-comparison.png]]
+
+#+ATTR_ORG: :width 800px
+
+From the above fig it seems like for this problem, at first glance it seems
+like LR and LDA sound promising for further evaluation
+
+
+
+** 11 - Improve accuracy by tuning the selected algorithm
+2 ways:
+Tune the parameters of an algorithm using a grid search that you specify.
+Tune the parameters of an algorithm using a random search.
+
+#+BEGIN_SRC python :results both
+  import pandas
+  data_names = ["pregnant", "plasma_glucose", "blood_pressure", 
+                "skin_fold_thickness", "serum_insulin", "bmi", "pedigree", "age", "class"]
+  df = pandas.read_csv("https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv", names=data_names)
+
+  array = df.values
+  X = array[:, :-1]
+  y = array[:, -1]
+
+  from sklearn.linear_model import Ridge
+  classifier = Ridge()
+
+  from sklearn.model_selection import GridSearchCV
+  my_param_grid = {"alpha" : [1, 0.1, 0.01, 0.001, 0.0001, 0]}
+
+  grid = GridSearchCV(classifier, param_grid = my_param_grid)
+  grid.fit(X, y)
+
+  print(grid.best_score_)
+  print(grid.best_estimator_.alpha)
+
+  ################################################################
+
+  from sklearn.model_selection import RandomizedSearchCV
+  classifier2 = Ridge()
+
+  from scipy.stats import randint
+  my_param_dist = {"alpha": randint(0,10)} #doubt, can alpha be > 1, also wtf is scipy.stats.randint() function
+  random_search = RandomizedSearchCV(estimator=classifier2, param_distributions = my_param_dist)
+  random_search.fit(X, y)
+  print(random_search.best_estimator_)
+
+#+END_SRC
+
+#+RESULTS:
+: None
+
+#+ATTR_ORG: :width 800px
 
