@@ -6,3 +6,6 @@
 
 # Ignore venv directory
 mlm2
+
+_minted-mlm/
+scipy-lecture-notes/

@@ -8,47 +8,14 @@ import math as m
 from math import *
 from math import ceil, floor
 import math
-""" Multiline strings can be written
-    using three "s, and are often used
-    as documentation.
-"""
 
-####################################################
-# 1. Primitive Datatypes and Operators
-####################################################
-
-# You have numbers
-3  # => 3
-
-# Math is what you would expect
-1 + 1   # => 2
-8 - 1   # => 7
-10 * 2  # => 20
-35 / 5  # => 7.0
-
-# Result of integer division truncated down both for positive and negative.
 5 // 3       # => 1
 5.0 // 3.0   # => 1.0 # works on floats too
 -5 // 3      # => -2
 -5.0 // 3.0  # => -2.0
-
-# The result of division is always a float
 10.0 / 3  # => 3.3333333333333335
 10 / 3  # => 3.3333333333333335
-
-# Modulo operation
-7 % 3  # => 1
-
-# Exponentiation (x**y, x to the yth power)
 2**3  # => 8
-
-# Enforce precedence with parentheses
-(1 + 3) * 2  # => 8
-
-# Boolean values are primitives (Note: the capitalization)
-True
-False
-
 # negate with not
 not True   # => False
 not False  # => True
@@ -58,17 +25,6 @@ not False  # => True
 True and False  # => False
 False or True   # => True
 
-# True and False are actually 1 and 0 but with different keywords
-True + True  # => 2
-True * 8    # => 8
-False - 5   # => -5
-
-# Comparison operators look at the numerical value of True and False
-0 == False  # => True
-1 == True   # => True
-2 == True   # => False
--5 != False  # => True
-
 # Using boolean logical operators on ints casts them to booleans for evaluation, but their non-cast value is returned
 # Don't mix up with bool(ints) and bitwise and/or (&,|)
 bool(0)     # => False
@@ -76,26 +32,6 @@ bool(4)     # => True
 bool(-6)    # => True
 0 and 2     # => 0
 -5 or 0     # => -5
-
-# Equality is ==
-1 == 1  # => True
-2 == 1  # => False
-
-# Inequality is !=
-1 != 1  # => False
-2 != 1  # => True
-
-# More comparisons
-1 < 10  # => True
-1 > 10  # => False
-2 <= 2  # => True
-2 >= 2  # => True
-
-# Seeing whether a value is in a range
-1 < 2 and 2 < 3  # => True
-2 < 3 and 3 < 2  # => False
-# Chaining makes this look nicer
-# anoop
 1 < 2 < 3  # => True
 2 < 3 < 2  # => False
 
@@ -112,23 +48,11 @@ b = [1, 2, 3, 4]  # Point b at a new list, [1, 2, 3, 4]
 b is a            # => False, a and b do not refer to the same object
 b == a            # => True, a's and b's objects are equal
 
-# Strings are created with " or '
 "This is a string."
-'This is also a string.'
-
-# Strings can be added too! But try not to do this.
 "Hello " + "world!"  # => "Hello world!"
 # String literals (but not variables) can be concatenated without using '+'
 "Hello " "world!"    # => "Hello world!"
-
-# A string can be treated like a list of characters
-"This is a string"[0]  # => 'T'
-
-# You can find the length of a string
 len("This is a string")  # => 16
-
-# .format can be used to format strings, like this:
-# => "Strings can be interpolated"
 "{} can be {}".format("Strings", "interpolated")
 
 # You can repeat the formatting arguments to save some typing.
@@ -151,7 +75,6 @@ f"She said her name is {name}."  # => "She said her name is Reiko"
 # You can basically put any Python statement inside the braces and it will be output in the string.
 f"{name} is {len(name)} characters long."
 
-
 # None is an object
 None  # => None
 
@@ -160,43 +83,18 @@ None  # => None
 "etc" is None  # => False
 None is None   # => True
 
-# None, 0, and empty strings/lists/dicts/tuples all evaluate to False.
-# All other values are True
-bool(0)   # => False
-bool("")  # => False
-bool([])  # => False
-bool({})  # => False
-bool(())  # => False
-
 ####################################################
 # 2. Variables and Collections
 ####################################################
-
-# Python has a print function
-print("I'm Python. Nice to meet you!")  # => I'm Python. Nice to meet you!
-
-# By default the print function also prints out a newline at the end.
-# Use the optional argument end to change the end string.
 print("Hello, World", end="!")  # => Hello, World!
-
-# Simple way to get input data from console
-input_string_var = input("Enter some data: ")  # Returns the data as a string
-# Note: In earlier versions of Python, input() method was named as raw_input()
-# Return string even if you entered number, '9' if you entered 9
-type(input_string_var)
+input_string_var = input("Enter some data: ")
+type(input_string_var)  # =>  always string
 
 # There are no declarations, only assignments.
 # Convention is to use lower_case_with_underscores
 some_var = 5
 some_var  # => 5
-
-# Accessing a previously unassigned variable is an exception.
-# See Control Flow to learn more about exception handling.
 some_unknown_var  # Raises a NameError
-
-# if can be used as an expression
-# Equivalent of C's '?:' ternary operator
-"yahoo!" if 3 > 2 else 2  # => "yahoo!"
 
 # Lists store sequences
 li = []
@@ -215,7 +113,6 @@ li.append(3)    # li is now [1, 2, 4, 3] again.
 
 # Access a list like you would any array
 li[0]   # => 1
-# Look at the last element
 li[-1]  # => 3
 
 # Looking out of bounds is an IndexError
@@ -240,7 +137,7 @@ li[::-1]  # => [3, 4, 2, 1]
 # Make a one layer deep copy using slices
 li2 = li[:]  # => li2 = [1, 2, 4, 3] but (li2 is li) will result in false.
 
-# Remove arbitrary elements from a list with "del"
+# Remove arbitrary elements using its position index from a list with "del"
 del li[2]  # li is now [1, 2, 3]
 
 # Remove first occurrence of a value
@@ -287,8 +184,6 @@ tup + (4, 5, 6)  # => (1, 2, 3, 4, 5, 6)
 tup[:2]          # => (1, 2)
 2 in tup         # => True
 
-# You can unpack tuples (or lists) into variables
-a, b, c = (1, 2, 3)  # a is now 1, b is now 2 and c is now 3
 # You can also do extended unpacking
 a, *b, c = (1, 2, 3, 4)  # a is now 1, b is now [2, 3] and c is now 4
 # Tuples are created by default if you leave out the parentheses
@@ -313,25 +208,11 @@ valid_dict = {(1, 2, 3): [1, 2, 3]}   # Values can be of any type, however.
 # Look up values with []
 filled_dict["one"]  # => 1
 
-# Get all keys as an iterable with "keys()". We need to wrap the call in list()
-# to turn it into a list. We'll talk about those later.  Note - Dictionary key
-# ordering is not guaranteed. Your results might not match this exactly.
+# Get all keys as an iterable with "keys()"
 list(filled_dict.keys())  # => ["three", "two", "one"]
-
-
-# Get all values as an iterable with "values()". Once again we need to wrap it
-# in list() to get it out of the iterable. Note - Same as above regarding key
-# ordering.
 list(filled_dict.values())  # => [3, 2, 1]
 
-
-# Check for existence of keys in a dictionary with "in"
-"one" in filled_dict  # => True
-1 in filled_dict      # => False
-
-# Looking up a non-existing key is a KeyError
-filled_dict["four"]  # KeyError
-
+# anoop
 # Use "get()" method to avoid the KeyError
 filled_dict.get("one")      # => 1
 filled_dict.get("four")     # => None
@@ -351,50 +232,19 @@ filled_dict["four"] = 4         # another way to add to dict
 # Remove keys from a dictionary with del
 del filled_dict["one"]  # Removes the key "one" from filled dict
 
-# From Python 3.5 you can also use the additional unpacking options
-{'a': 1, **{'b': 2}}  # => {'a': 1, 'b': 2}
-{'a': 1, **{'a': 2}}  # => {'a': 2}
-
-
 # Sets store ... well sets
 empty_set = set()
-# Initialize a set with a bunch of values. Yeah, it looks a bit like a dict. Sorry.
+# Initialize a set with a bunch of values, values must be immutable. Yeah, it looks a bit like a dict. Sorry.
 some_set = {1, 1, 2, 2, 3, 4}  # some_set is now {1, 2, 3, 4}
-
-# Similar to keys of a dictionary, elements of a set have to be immutable.
-invalid_set = {[1], 1}  # => Raises a TypeError: unhashable type: 'list'
-valid_set = {(1,), 1}
 
 # Add one more item to the set
 filled_set = some_set
 filled_set.add(5)  # filled_set is now {1, 2, 3, 4, 5}
 # Sets do not have duplicate elements
 filled_set.add(5)  # it remains as before {1, 2, 3, 4, 5}
+filled_set.remove(1)
 
-# Do set intersection with &
-other_set = {3, 4, 5, 6}
-filled_set & other_set  # => {3, 4, 5}
-
-# Do set union with |
-filled_set | other_set  # => {1, 2, 3, 4, 5, 6}
-
-# Do set difference with -
-{1, 2, 3, 4} - {2, 3, 5}  # => {1, 4}
-
-# Do set symmetric difference with ^
-{1, 2, 3, 4} ^ {2, 3, 5}  # => {1, 4, 5}
-
-# Check if set on the left is a superset of set on the right
-{1, 2} >= {1, 2, 3}  # => False
-
-# Check if set on the left is a subset of set on the right
-{1, 2} <= {1, 2, 3}  # => True
-
-# Check for existence in a set with in
-2 in filled_set   # => True
-10 in filled_set  # => False
-
-
+# anoop stopped here on jan 9
 ####################################################
 # 3. Control Flow and Iterables
 ####################################################
@@ -467,7 +317,7 @@ prints:
     2
     3
 """
-x = 0
+    x = 0
 while x < 4:
     print(x)
     x += 1  # Shorthand for x = x + 1

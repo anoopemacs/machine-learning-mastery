@@ -227,8 +227,8 @@ Fixed some errors using: pip install nose pyparsing python-dateutil pep8
 #+END_SRC
 
 #+RESULTS:
-: python: 3.7.0 (default, Aug 22 2018, 15:22:29) 
-: [Clang 8.0.0 (clang-800.0.42.1)]
+: python: 3.7.2 (default, Dec 27 2018, 07:35:06) 
+: [Clang 10.0.0 (clang-1000.11.45.5)]
 : scipy: 1.1.0
 : numpy: 1.15.4
 : matplotlib 3.0.2
@@ -504,6 +504,7 @@ pyvenv-deactivate
 
   plt.plot([0.5], 'y.')
   plt.show()
+
 #+END_SRC
 
 #+RESULTS:
@@ -558,6 +559,7 @@ So pandas is kinda like an excel sheet0
 
 #+END_SRC
 
+*** also refer to (I did not use this though) https://machinelearningmastery.com/crash-course-python-machine-learning-developers/
 ** 3 - Load csv
 https://realpython.com/python-csv/
 https://github.com/jbrownlee/Datasets
@@ -622,12 +624,13 @@ https://github.com/jbrownlee/Datasets
   df = pandas.read_csv('pandas_read_csv.csv')
   print(df)
 
-  df2 = pandas.read_csv('pandas_read_csv.csv', parse_dates=['Hire Date'], index_col='Name')
+  df2 = pandas.read_csv('pandas_read_csv.csv', parse_dates=[
+                        'Hire Date'], index_col='Name')
   print(df2)
 
   my_col_names = ("Name", "Hired_on", "Salary", "sick_days_remaining")
   df3 = pandas.read_csv('pandas_read_csv.csv', header=None, names=my_col_names,
-  parse_dates=['Hired_on'])
+                        parse_dates=['Hired_on'])
   print(df3)
 
   df3.to_csv('pandas_to_csv.csv')
@@ -651,6 +654,9 @@ https://github.com/jbrownlee/Datasets
 
   df.corr()
 #+END_SRC
+
+#+RESULTS:
+
 ** 5 - Basic Data Visualization
 Using pandas and matplotlib together
 #+BEGIN_SRC python :results file
@@ -1387,34 +1393,36 @@ skip for now till you understand what is bagging and stochastic gradient boostin
 ** 13 - Saving model to file for future reuse
 We use 'pickle' to save model to file
 #+BEGIN_SRC python :results file
+  import pickle
+  from sklearn.linear_model import LogisticRegression
+  from sklearn.model_selection import train_test_split
   import pandas
-  data_names = ["pregnant", "plasma_glucose", "blood_pressure", 
+  data_names = ["pregnant", "plasma_glucose", "blood_pressure",
                 "skin_fold_thickness", "serum_insulin", "bmi", "pedigree", "age", "class"]
-  df = pandas.read_csv("https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv", names=data_names)
+  df = pandas.read_csv(
+      "https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv", names=data_names)
 
   array = df.values
   X = array[:, :-1]
   y = array[:, -1]
 
-  from sklearn.model_selection import train_test_split
 
   X_train, X_test, y_train, y_test = train_test_split(X, y)
 
-  from sklearn.linear_model import LogisticRegression
-  my_estimator = LogisticRegression() #this is the model
+  my_estimator = LogisticRegression()  # this is the model
 
   my_estimator.fit(X_train, y_train)
 
-  #save trained model to disk for reuse
-  import pickle
-  pickle.dump(my_estimator, open("lesson13_saved_model.sav", 'wb')) #alternative is to use with open syntax
-  #wb = write binary
+  # save trained model to disk for reuse
+  # alternative is to use with open syntax
+  pickle.dump(my_estimator, open("lesson13_saved_model.sav", 'wb'))
+  # wb = write binary
 
-  #later on
-  #loading from saved binary data on file
+  # later on
+  # loading from saved binary data on file
   loaded_model = pickle.load(open("lesson13_saved_model.sav", "rb"))
 
-  #saved model try on test data
+  # saved model try on test data
   result = loaded_model.score(X_test, y_test)
   print(result)
 #+END_SRC
@@ -1423,3 +1431,571 @@ We use 'pickle' to save model to file
 ** 14 - end to end
 skip for now, later on pick something from UCI dataset and do on your own
 after some spaced repetition
+
+* NumPy
+*realpython says:*
+When it comes to computation, there are really three concepts that lend NumPy its power:
+Vectorization = "I think there is room for a different approach concentrating on the migration from Python to Numpy through vectorization" http://www.labri.fr/perso/nrougier/from-python-to-numpy/
+Broadcasting
+Indexing
+
+Studying from scipy-lectures Chapter 1.3 
+
+** Concise notes on section 1.3.1. The NumPy array object
+#+BEGIN_SRC python :results file
+  import matplotlib.pyplot as plt
+  import numpy as np
+
+  # np.con*?  # only in ipython?
+  a = np.array([1, 2, 3, 4])
+  a.ndim
+  a.shape
+
+  np.arange(1, 10)
+  np.linspace(0, 1, 3, endpoint=True)
+
+  np.ones((3, 4))
+  np.zeros((2, 3))
+  np.eye(4)
+  d = np.diag(a)
+
+  np.random.rand(2, 2)  # input is shape
+
+  x = np.linspace(0, 5, num=6)
+  plt.plot(x, x ** 2, 'o')
+
+  image = np.random.rand(30, 30)
+  plt.imshow(image)
+
+  # Indexing and Slicing, # a[start:stop:step]
+  d[1:, :]  # index is a tuple, but dont put () because : syntax is for numpy
+
+  idwala = np.arange(6) + np.arange(0, 51, 10)[:, np.newaxis]
+  np.tile(np.array([[4, 3], [2, 1]], dtype=np.int64), (2, 3))
+
+  e = d.copy()
+  np.may_share_memory(d, e)  # => False
+
+  # eratostenes seive implement
+
+  # Fancy indexing, unlike above slicing & simple indexing, this always creates copies
+  mask = (d != 0)
+  f = d[mask]
+
+  idwala[[2, 1, 1], [0, 3, 3]]
+  idwala[1:5:2, [0, 2, 4]]
+
+  #bool np.array used as mask, note:doesnt work if mask isnt dtype=bool
+  mask = np.array([1, 0, 1, 0, 0, 1], dtype=bool)
+  idwala[mask, [0,2,5]] #shows the red ones
+#+END_SRC
+#+ATTR_ORG: :width 800px
+file:///Users/anoop/ml/flipshope/scipy-lecture-notes/scipy-lectures-scipy-lectures.github.com-4b1d444/_images/numpy_fancy_indexing.png
+
+*** eratostenes seive doubt
+Doubt: How to add the optimization to skip if already False inside for loop?
+#+BEGIN_SRC python :results file
+  import numpy as np
+  ans = np.array([ 2,  3,  5,  7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97])
+  is_prime = np.ones(100, dtype=bool)
+  is_prime[:2] = False
+
+  N_max = int(np.sqrt(99)) #the max value in is_prime
+
+  for j in range(2, N_max):
+      is_prime[j*j::j] = False
+
+  my_ans = np.nonzero(is_prime)
+  np.array_equal(my_ans[0], ans)
+
+#+END_SRC
+#+ATTR_ORG: :width 800px
+
+possible ans
+#+BEGIN_SRC python :results file
+  def primesfrom3to(n):
+      # https://stackoverflow.com/questions/2068372/fastest-way-to-list-all-primes-below-n-in-python/3035188#3035188
+      """ Returns a array of primes, p < n """
+      assert n>=2
+      sieve = np.ones(n/2, dtype=np.bool)
+      for i in xrange(3,int(n**0.5)+1,2):
+          if sieve[i/2]:
+              sieve[i*i/2::i] = False
+      return np.r_[2, 2*np.nonzero(sieve)[0][1::]+1]  
+
+
+  ##original
+  import numpy
+  def primesfrom3to(n):
+      """ Returns a array of primes, 3 <= p < n """
+      sieve = numpy.ones(n//2, dtype=numpy.bool)
+      for i in range(3,int(n**0.5)+1,2):
+          if sieve[i//2]:
+              sieve[i*i//2::i] = False
+      return 2*numpy.nonzero(sieve)[0][1::]+1
+#+END_SRC
+#+ATTR_ORG: :width 800px
+
+** Concise notes on section 1.3.2. Numerical operations on arrays
+Mn. elementwise is the name of the game
+#+BEGIN_SRC python :results file
+  from matplotlib import pyplot as plt
+  import numpy as np
+
+  # Generate a_j = 2^(3*j) - j
+  a10 = np.arange(0, 10)
+  2 ** (3 * a10) - a10
+
+  a = np.ones(4, dtype=bool)
+  b = np.zeros(4, dtype=bool)
+
+  a == b  # elementwise, returns array of bool
+  np.array_equal(a, b)  # arraywise
+  np.logical_or(a, b)
+  np.logical_and(a, b)
+
+  x = np.linspace(0, 2*3.14, 5)
+  y = np.sin(x)
+
+  x2 = np.linspace(0, 2*3.14, 50000, endpoint=True)
+  y2 = np.sin(x2)
+
+  # lly, np.log(...)  np.exp(...)
+
+  # np.triangle upper
+  a = np.triu(np.ones((3, 3)), 1)
+  b = a.T
+  np.may_share_memory(a, b)
+
+  # np.allclose?
+
+  # Reductions:
+  a.sum(axis=0)
+  # lly a.max(), a.min(), a.argmax(), a.argmin(), a.any(), a.all()
+  # a.mean(), a.std()
+
+  # logical operation used for reduction nice example
+  a = np.array([1, 2, 3, 2])
+  b = np.array([2, 2, 3, 2])
+  c = np.array([6, 4, 4, 5])
+
+  ((a <= b) & (b <= c)).all()
+
+  # data visualization & stats worked example, hares etc populaitons
+
+  data = np.loadtxt('./populations.txt')
+  year, hare, lynx, carrot = data.T  # awesome trick <3
+  plt.plot(year, hare, year, lynx, year, carrot)
+  plt.legend(('Hare', 'Lynx', 'Year'))
+  # plt.show()
+
+#+END_SRC
+#+ATTR_ORG: :width 800px
+
+use scipy.linalg, not numpy.linalg : because scipy version is guranteed to fast
+
+try again after spaced repetition: Worked Example: diffusion using a random walk algorithm
+
+*** Broadcasting
+Same size expansion
+
+Very useful trick: a = a[:, np.newaxis]  # adds a new axis -> 2D array if 1D initially
+#+BEGIN_SRC python :results file
+  import numpy as np
+
+  a = np.arange(1, 5)
+  b = a[:, np.newaxis]
+
+  mileposts = np.array([0, 198, 303, 736, 871, 1175, 1475, 1544, 1913, 2448])
+  m_y = mileposts[:, np.newaxis]
+  ans = np.abs(mileposts - m_y)
+
+  # ravel can be used for flattening0 view
+  a = np.random.randint(0, 5, (2, 2, 2), dtype=int)
+  flat = a.ravel()
+  # lly .flatten() for flattening0 copy
+
+  # note -1 means inferred from number of elements present calculate 2*2*x = len(flat)
+  a2 = flat.reshape(2, 2, -1)
+  np.array_equal(a, a2)
+#+END_SRC
+#+ATTR_ORG: :width 800px
+
+After this skipped to section 1.4 as recommended by authors
+
+* Matplotlib
+** ipython --pylab
+
+In [4]: import numpy as np
+
+In [5]: import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8, 6), dpi=80)
+
+
+In [6]: 
+In [6]: Out[6]: <Figure size 640x480 with 0 Axes>
+
+In [7]: 
+In [7]: X = np.linspace(-np.pi, np.pi, 256, endpoint=True)
+
+In [8]: X
+Out[8]: 
+array([-3.14159265, -3.11695271, -3.09231277, -3.06767283, -3.04303288,
+       -3.01839294, -2.993753  , -2.96911306, -2.94447311, -2.91983317,
+       -2.89519323, -2.87055329, -2.84591335, -2.8212734 , -2.79663346,
+       -2.77199352, -2.74735358, -2.72271363, -2.69807369, -2.67343375,
+       -2.64879381, -2.62415386, -2.59951392, -2.57487398, -2.55023404,
+       -2.52559409, -2.50095415, -2.47631421, -2.45167427, -2.42703432,
+       -2.40239438, -2.37775444, -2.3531145 , -2.32847456, -2.30383461,
+       -2.27919467, -2.25455473, -2.22991479, -2.20527484, -2.1806349 ,
+       -2.15599496, -2.13135502, -2.10671507, -2.08207513, -2.05743519,
+       -2.03279525, -2.0081553 , -1.98351536, -1.95887542, -1.93423548,
+       -1.90959553, -1.88495559, -1.86031565, -1.83567571, -1.81103577,
+       -1.78639582, -1.76175588, -1.73711594, -1.712476  , -1.68783605,
+       -1.66319611, -1.63855617, -1.61391623, -1.58927628, -1.56463634,
+       -1.5399964 , -1.51535646, -1.49071651, -1.46607657, -1.44143663,
+       -1.41679669, -1.39215674, -1.3675168 , -1.34287686, -1.31823692,
+       -1.29359698, -1.26895703, -1.24431709, -1.21967715, -1.19503721,
+       -1.17039726, -1.14575732, -1.12111738, -1.09647744, -1.07183749,
+       -1.04719755, -1.02255761, -0.99791767, -0.97327772, -0.94863778,
+       -0.92399784, -0.8993579 , -0.87471795, -0.85007801, -0.82543807,
+       -0.80079813, -0.77615819, -0.75151824, -0.7268783 , -0.70223836,
+       -0.67759842, -0.65295847, -0.62831853, -0.60367859, -0.57903865,
+       -0.5543987 , -0.52975876, -0.50511882, -0.48047888, -0.45583893,
+       -0.43119899, -0.40655905, -0.38191911, -0.35727916, -0.33263922,
+       -0.30799928, -0.28335934, -0.2587194 , -0.23407945, -0.20943951,
+       -0.18479957, -0.16015963, -0.13551968, -0.11087974, -0.0862398 ,
+       -0.06159986, -0.03695991, -0.01231997,  0.01231997,  0.03695991,
+        0.06159986,  0.0862398 ,  0.11087974,  0.13551968,  0.16015963,
+        0.18479957,  0.20943951,  0.23407945,  0.2587194 ,  0.28335934,
+        0.30799928,  0.33263922,  0.35727916,  0.38191911,  0.40655905,
+        0.43119899,  0.45583893,  0.48047888,  0.50511882,  0.52975876,
+        0.5543987 ,  0.57903865,  0.60367859,  0.62831853,  0.65295847,
+        0.67759842,  0.70223836,  0.7268783 ,  0.75151824,  0.77615819,
+        0.80079813,  0.82543807,  0.85007801,  0.87471795,  0.8993579 ,
+        0.92399784,  0.94863778,  0.97327772,  0.99791767,  1.02255761,
+        1.04719755,  1.07183749,  1.09647744,  1.12111738,  1.14575732,
+        1.17039726,  1.19503721,  1.21967715,  1.24431709,  1.26895703,
+        1.29359698,  1.31823692,  1.34287686,  1.3675168 ,  1.39215674,
+        1.41679669,  1.44143663,  1.46607657,  1.49071651,  1.51535646,
+        1.5399964 ,  1.56463634,  1.58927628,  1.61391623,  1.63855617,
+        1.66319611,  1.68783605,  1.712476  ,  1.73711594,  1.76175588,
+        1.78639582,  1.81103577,  1.83567571,  1.86031565,  1.88495559,
+        1.90959553,  1.93423548,  1.95887542,  1.98351536,  2.0081553 ,
+        2.03279525,  2.05743519,  2.08207513,  2.10671507,  2.13135502,
+        2.15599496,  2.1806349 ,  2.20527484,  2.22991479,  2.25455473,
+        2.27919467,  2.30383461,  2.32847456,  2.3531145 ,  2.37775444,
+        2.40239438,  2.42703432,  2.45167427,  2.47631421,  2.50095415,
+        2.52559409,  2.55023404,  2.57487398,  2.59951392,  2.62415386,
+        2.64879381,  2.67343375,  2.69807369,  2.72271363,  2.74735358,
+        2.77199352,  2.79663346,  2.8212734 ,  2.84591335,  2.87055329,
+        2.89519323,  2.91983317,  2.94447311,  2.96911306,  2.993753  ,
+        3.01839294,  3.04303288,  3.06767283,  3.09231277,  3.11695271,
+        3.14159265])
+
+In [9]: S, C = sin(X), cos(X)
+
+In [10]: plt.plot(X, S, X, C)
+Out[10]: 
+[<matplotlib.lines.Line2D at 0x121dcda90>,
+ <matplotlib.lines.Line2D at 0x121dcdc88>]
+
+In [11]: plt.label?
+Object `plt.label` not found.
+
+In [12]: plt.label*?
+
+
+In [13]: plt.labels?
+Object `plt.labels` not found.
+
+In [14]: plt.leg*?
+plt.legend
+
+In [15]: plt.legend(('sin', 'cos))
+  File "<ipython-input-15-d5f180045479>", line 1
+    plt.legend(('sin', 'cos))
+                             ^
+SyntaxError: EOL while scanning string literal
+
+
+In [16]: plt.legend(('sin', 'cos'))
+Out[16]: <matplotlib.legend.Legend at 0x121e21278>
+
+In [17]: plt.ylim(-1.0, +1.0)
+Out[17]: (-1.0, 1.0)
+
+In [18]: plt.xlim(-4.0, 4.0)
+Out[18]: (-4.0, 4.0)
+
+In [19]: plt.xlim(-np.pi, np.pi)
+Out[19]: (-3.141592653589793, 3.141592653589793)
+
+In [20]: #plt.yticks(np.linspace(-1, 1, 5, endpoint=True))
+
+In [21]: np.linspace(-1, 1, 5, endpoint=True)
+Out[21]: array([-1. , -0.5,  0. ,  0.5,  1. ])
+
+In [22]: plt.yticks(np.linspace(-1, 1, 5, endpoint=True))
+Out[22]: 
+([<matplotlib.axis.YTick at 0x121db4cf8>,
+  <matplotlib.axis.YTick at 0x121db4630>,
+  <matplotlib.axis.YTick at 0x121df2b38>,
+  <matplotlib.axis.YTick at 0x121dfdf28>,
+  <matplotlib.axis.YTick at 0x121e10278>],
+ <a list of 5 Text yticklabel objects>)
+
+In [23]: #plt.plot(X, np.zeros())
+
+In [24]: np.zeros(5)
+Out[24]: array([0., 0., 0., 0., 0.])
+
+In [25]: plt.plot(X, np.zeros())
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-25-7175f9d13573> in <module>
+----> 1 plt.plot(X, np.zeros())
+
+TypeError: zeros() missing required argument 'shape' (pos 1)
+
+In [26]: plt.plot(X, np.zeros(2))
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-26-c4c80a126e15> in <module>
+----> 1 plt.plot(X, np.zeros(2))
+
+~/ml/flipshope/mlm2/lib/python3.7/site-packages/matplotlib/pyplot.py in plot(scalex, scaley, data, *args, **kwargs)
+   2811     return gca().plot(
+   2812         *args, scalex=scalex, scaley=scaley, **({"data": data} if data
+-> 2813         is not None else {}), **kwargs)
+   2814 
+   2815 
+
+~/ml/flipshope/mlm2/lib/python3.7/site-packages/matplotlib/__init__.py in inner(ax, data, *args, **kwargs)
+   1808                         "the Matplotlib list!)" % (label_namer, func.__name__),
+   1809                         RuntimeWarning, stacklevel=2)
+-> 1810             return func(ax, *args, **kwargs)
+   1811 
+   1812         inner.__doc__ = _add_data_doc(inner.__doc__,
+
+~/ml/flipshope/mlm2/lib/python3.7/site-packages/matplotlib/axes/_axes.py in plot(self, scalex, scaley, *args, **kwargs)
+   1609         kwargs = cbook.normalize_kwargs(kwargs, mlines.Line2D._alias_map)
+   1610 
+-> 1611         for line in self._get_lines(*args, **kwargs):
+   1612             self.add_line(line)
+   1613             lines.append(line)
+
+~/ml/flipshope/mlm2/lib/python3.7/site-packages/matplotlib/axes/_base.py in _grab_next_args(self, *args, **kwargs)
+    391                 this += args[0],
+    392                 args = args[1:]
+--> 393             yield from self._plot_args(this, kwargs)
+    394 
+    395 
+
+~/ml/flipshope/mlm2/lib/python3.7/site-packages/matplotlib/axes/_base.py in _plot_args(self, tup, kwargs)
+    368             x, y = index_of(tup[-1])
+    369 
+--> 370         x, y = self._xy_from_xy(x, y)
+    371 
+    372         if self.command == 'plot':
+
+~/ml/flipshope/mlm2/lib/python3.7/site-packages/matplotlib/axes/_base.py in _xy_from_xy(self, x, y)
+    229         if x.shape[0] != y.shape[0]:
+    230             raise ValueError("x and y must have same first dimension, but "
+--> 231                              "have shapes {} and {}".format(x.shape, y.shape))
+    232         if x.ndim > 2 or y.ndim > 2:
+    233             raise ValueError("x and y can be no greater than 2-D, but have "
+
+ValueError: x and y must have same first dimension, but have shapes (256,) and (2,)
+
+In [27]: plt.plot(X, np.zeros(256))
+Out[27]: [<matplotlib.lines.Line2D at 0x126031f28>]
+
+In [28]: 2/3
+Out[28]: 0.6666666666666666
+
+In [29]: 2 ** (-.5)
+Out[29]: 0.7071067811865476
+
+In [30]: sin(np.pi / 2)
+Out[30]: 1.0
+
+In [31]: sin(np.pi / 4)
+Out[31]: 0.7071067811865475
+
+In [32]: sin(3* np.pi / 4)
+Out[32]: 0.7071067811865476
+
+In [33]: sin(np.pi / 3)
+Out[33]: 0.8660254037844386
+
+In [34]: 3 ** .5
+Out[34]: 1.7320508075688772
+
+In [35]: (3 ** .5) / 4
+Out[35]: 0.4330127018922193
+
+In [36]: (3 ** .5) / 2
+Out[36]: 0.8660254037844386
+
+In [37]: plt.Xmax
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-37-59b378d6a5c8> in <module>
+----> 1 plt.Xmax
+
+AttributeError: module 'matplotlib.pyplot' has no attribute 'Xmax'
+
+In [38]: plt.xmax
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-38-9026f698e34b> in <module>
+----> 1 plt.xmax
+
+AttributeError: module 'matplotlib.pyplot' has no attribute 'xmax'
+
+In [39]: plt.xlim(X.max() * 1.1)
+Out[39]: (3.455751918948773, 3.141592653589793)
+
+In [40]: plt.xlim(X.min() * 1.1, X.max() * 1.1)
+Out[40]: (-3.455751918948773, 3.455751918948773)
+
+In [41]: plt.xlim(X.min() + 0.5, X.max() + 0.5)
+Out[41]: (-2.641592653589793, 3.641592653589793)
+
+In [42]: plt.xlim(X.min() - 0.5, X.max() + 0.5)
+Out[42]: (-3.641592653589793, 3.641592653589793)
+
+In [43]: plt.ylim(Y.min() - 0.5, Y.max() + 0.5)
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-43-34d48cb3488c> in <module>
+----> 1 plt.ylim(Y.min() - 0.5, Y.max() + 0.5)
+
+NameError: name 'Y' is not defined
+
+In [44]: plt.ylim(S.min() - 0.25, S.max() + 0.25)
+Out[44]: (-1.2499810273487268, 1.2499810273487268)
+
+In [45]: plt.xticks([-np.pi, -3 * np.pi / 2, -np.pi / 2, -np.pi / 4, 0, np.pi / 4 , np.pi / 2, 3 * np.pi / 2, ,  np.pi])
+
+  File "<ipython-input-45-adc65bcd297e>", line 1
+    plt.xticks([-np.pi, -3 * np.pi / 2, -np.pi / 2, -np.pi / 4, 0, np.pi / 4 , np.pi / 2, 3 * np.pi / 2, ,  np.pi])
+                                                                                                         ^
+SyntaxError: invalid syntax
+
+
+In [46]: 
+In [46]: [-np.pi, -3 * np.pi / 2, -np.pi / 2, -np.pi / 4, 0, np.pi / 4 , np.pi / 2, 3 * np.pi / 2, ,  np.pi]
+
+  File "<ipython-input-46-74c406e61e87>", line 1
+    [-np.pi, -3 * np.pi / 2, -np.pi / 2, -np.pi / 4, 0, np.pi / 4 , np.pi / 2, 3 * np.pi / 2, ,  np.pi]
+                                                                                              ^
+SyntaxError: invalid syntax
+
+
+In [47]: 
+In [47]: plt.xticks([-np.pi, -3 * np.pi / 2, -np.pi / 2, -np.pi / 4, 0, np.pi / 4 , np.pi / 2, 3 * np.pi / 2,  np.pi])
+
+Out[47]: 
+([<matplotlib.axis.XTick at 0x1173fc5c0>,
+  <matplotlib.axis.XTick at 0x11e081978>,
+  <matplotlib.axis.XTick at 0x11df97da0>,
+  <matplotlib.axis.XTick at 0x121ddf4e0>,
+  <matplotlib.axis.XTick at 0x121ddfa20>,
+  <matplotlib.axis.XTick at 0x121ddfef0>,
+  <matplotlib.axis.XTick at 0x121df2400>,
+  <matplotlib.axis.XTick at 0x121ddfac8>,
+  <matplotlib.axis.XTick at 0x121df2278>],
+ <a list of 9 Text xticklabel objects>)
+
+In [48]: 
+In [48]: plt.xli?
+Object `plt.xli` not found.
+
+In [49]: plt.xli*?
+plt.xlim
+
+In [50]: plt.xlim(-np.pi * 1.1, np.pi * 1.1)
+Out[50]: (-3.455751918948773, 3.455751918948773)
+
+In [51]: plt.xticks([-np.pi, -3 * np.pi / 2, -np.pi / 2, -np.pi / 4, 0, np.pi / 4 , np.pi / 2, 3 * np.pi / 2,  np.pi], ["-pi", "-.75pi", "-.5pi", "-.25pi", "0", ".25pi", ".5pi", ".75pi", "pi"])
+
+Out[51]: 
+([<matplotlib.axis.XTick at 0x1173fc5c0>,
+  <matplotlib.axis.XTick at 0x11e081978>,
+  <matplotlib.axis.XTick at 0x11df97da0>,
+  <matplotlib.axis.XTick at 0x121ddf4e0>,
+  <matplotlib.axis.XTick at 0x121ddfa20>,
+  <matplotlib.axis.XTick at 0x121ddfef0>,
+  <matplotlib.axis.XTick at 0x121df2400>,
+  <matplotlib.axis.XTick at 0x121ddfac8>,
+  <matplotlib.axis.XTick at 0x121df2278>],
+ <a list of 9 Text xticklabel objects>)
+
+In [52]: 
+In [52]: plt.xlim(-np.pi * 1.1, np.pi * 1.1)
+Out[52]: (-3.455751918948773, 3.455751918948773)
+
+In [53]: plt.xticks([-np.pi, -3 * np.pi / 2, -np.pi / 2, -np.pi / 4, 0, np.pi / 4 , np.pi / 2, 3 * np.pi / 2,  np.pi], ["-pi", "-.75pi", "-.5pi", "-.25pi", "0", ".25pi", ".5pi", ".75pi", "pi"])
+
+Out[53]: 
+([<matplotlib.axis.XTick at 0x1173fc5c0>,
+  <matplotlib.axis.XTick at 0x11e081978>,
+  <matplotlib.axis.XTick at 0x11df97da0>,
+  <matplotlib.axis.XTick at 0x121ddf4e0>,
+  <matplotlib.axis.XTick at 0x121ddfa20>,
+  <matplotlib.axis.XTick at 0x121ddfef0>,
+  <matplotlib.axis.XTick at 0x121df2400>,
+  <matplotlib.axis.XTick at 0x121ddfac8>,
+  <matplotlib.axis.XTick at 0x121df2278>],
+ <a list of 9 Text xticklabel objects>)
+
+In [54]: 
+In [54]: plt.xticks([-np.pi, -3 * np.pi / 4, -np.pi / 2, -np.pi / 4, 0, np.pi / 4 , np.pi / 2, 3 * np.pi / 4,  np.pi], ["-pi", "-.75pi", "-.5pi", "-.25pi", "0", ".25pi", ".5pi", ".75pi", "pi"])
+
+Out[54]: 
+([<matplotlib.axis.XTick at 0x1173fc5c0>,
+  <matplotlib.axis.XTick at 0x11e081978>,
+  <matplotlib.axis.XTick at 0x11df97da0>,
+  <matplotlib.axis.XTick at 0x121ddf4e0>,
+  <matplotlib.axis.XTick at 0x121ddfa20>,
+  <matplotlib.axis.XTick at 0x121ddfef0>,
+  <matplotlib.axis.XTick at 0x121df2400>,
+  <matplotlib.axis.XTick at 0x121ddfac8>,
+  <matplotlib.axis.XTick at 0x121df2278>],
+ <a list of 9 Text xticklabel objects>)
+
+In [55]: 
+In [55]: plt.xlim(-np.pi * 1.1, np.pi * 1.1)
+Out[55]: (-3.455751918948773, 3.455751918948773)
+
+In [56]: ax = plt.gca()
+
+In [57]: ax
+Out[57]: <matplotlib.axes._subplots.AxesSubplot at 0x11ddc05f8>
+
+In [58]: ax.spines['right']
+Out[58]: <matplotlib.spines.Spine at 0x11e05bd30>
+
+In [59]: ax.spines['right'].set_color('none')
+
+In [60]: ax.spines['top'].set_color('none')
+
+In [61]: ax.spines['left'].set_position(('data', 0))
+
+In [62]: ax.spines['bottom'].set_position(('data', 0))
+
+In [63]: 
+#+BEGIN_SRC python :results file
+  import numpy as np
+  import matplotlib.pyplot as plt
+
+  plt.figure(figsize=(8, 6), dpi=80)
+#+END_SRC
+#+ATTR_ORG: :width 800px
+
+** 1.4.3 stopped here
+** restarted matplotlib after restart at flipshope on Feb4
+Matplotlib code is in its own separate notebook
